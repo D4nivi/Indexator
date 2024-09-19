@@ -59,8 +59,10 @@ ___Nota: Los archivos se sobreescriben cada vez que se llama a una función___
 Indexator viene con 2 funciones para crear los indices:
 - **Indexator**. Crea índices ordenados **con números** a partir de encabezados _sin numeros_ (como el del ejemplo).
 
-- **Quasi-Indexator**. Crea índices ordenados **sin números** a partir de encabezados _con o sin numeros_. De esta manera, puede usarse si habías puesto numeros de antemano, por ejemplo:
+- **Quasi-Indexator**. Crea índices ordenados **sin números** a partir de encabezados _con o sin numeros_. A diferencia de la anterior, está función no vuelca nada a `bruto_indexado.md`, ya que no se añaden número. Por ello, puede usarse si habías puesto numeros de antemano (o si quieres un índice sin números), por ejemplo:
 ```
+Ejemplo de contenido de bruto.md para usar función Quasi-Indexator
+
 ## 1. Definición de rendimiento
 ## 2. Métricas populares
 ### 2.1 Tiempo de ejecución
