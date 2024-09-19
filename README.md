@@ -77,7 +77,9 @@ _Ejemplo de salida de función **Indexator** en `indice.md`._
 ```
 _Cómo se veria en Obsidian:_
 
-![Ejemplo salida indexator|center](img/Ejemplo%20salida%20indexator.png)
+<div align="center">
+    <img src="img/Ejemplo salida indexator.png" alt="Ejemplo salida indexator">
+</div>
 
 ### Configuración
 
