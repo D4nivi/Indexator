@@ -76,6 +76,7 @@ _Ejemplo de salida de función **Indexator** en `indice.md`._
 ---
 ```
 _Cómo se veria en Obsidian:_
+![](https://github.com/D4nivi/Indexator/img/Ejemplo%20salida%20indexator.png)
 
 ### Configuración
 
