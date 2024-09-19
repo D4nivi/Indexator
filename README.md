@@ -1,9 +1,14 @@
 # Indexator
 
-Indexator es un programa simple de Python que crea índices para Obsidian.
+Indexator es un programa de terminal sencillo hecho en Python que **crea índices para Obsidian**. 
+
+Es un programa hecho a mis gustos y a mi manera de organizar los apartados, por lo que la estructura no puede ser como te gustaría (en cuyo caso, siéntete libre de modificar el programa al gusto).
+
+## Requisitos
+Python 3.8 o superior: Puedes ver tu versión de Python con `python --version` or `python3 --version`.
 
 ## ¿Cómo usar?
-Imaginemos que tenemos una nota de obsidian con el siguiente esquema (los ... representan texto):
+Imaginemos que tenemos una nota de Obsidian con el siguiente esquema (los ... representan texto):
 
 ```
 ## Definición de rendimiento
@@ -32,7 +37,7 @@ Imaginemos que tenemos una nota de obsidian con el siguiente esquema (los ... re
 ...
 
 ```
-Un índice se creará a partir de los encabezados markdown (las almohadillas #). Dependiendo del numero de almohadillas, el programa detecta y crea un subindice. La transformación que hace el programa es la siguiente:
+Un índice se creará a partir de los encabezados markdown (las almohadillas #). Dependiendo del numero de almohadillas, el programa detecta y crea un subindice. La transformación que hace el programa de manera predeterminada es la siguiente:
 ```
 ## -> 1.
 ### -> 1.1
@@ -42,9 +47,11 @@ Un índice se creará a partir de los encabezados markdown (las almohadillas #).
 ###### -> 1.1.2.3.4.5
 ```
 
-Para crear un índice de nuestra nota, copiamos directamente todo el texto anterior de la nota al archivo `bruto.md`. No es necesario copiar solamente los encabezados, podemos copiar el texto completo (incluidas etiquetas) en el caso de que hubiera. El programa simplemente lo ignorará.
+Para crear un índice de los contenidos de nuestra nota, copiamos directamente todo el texto de la nota al archivo `bruto.md`. No es necesario copiar solamente los encabezados, podemos copiar el texto completo (incluidas etiquetas y bloques html, en el caso de que hubieran). El programa simplemente lo ignorará.
 
-Una vez hecho esto, ejecutamos el programa y seleccionamos la función que queramos usar (ver [_Funciones_](#Funciones)). El archivo `indice.md` contendrá el indice, mientras que el archivo `bruto_indexado.md` contendrá el bruto con los encabezados modificados (con los números añadidos).
+Una vez hecho esto, **ejecutamos el programa en una terminal desde la carpeta del proyecto** y seleccionamos la función que queramos usar (ver [_Funciones_](#Funciones)). El archivo `indice.md` contendrá el indice, mientras que el archivo `bruto_indexado.md` contendrá el bruto con los encabezados modificados (con los números añadidos).
+
+___Nota:____Los archivos se sobreescriben cada vez que se llama a una función_.
 
 
 ### Funciones
@@ -81,6 +88,8 @@ _Cómo se veria en Obsidian:_
     <img src="img/Ejemplo salida indexator.png" alt="Ejemplo salida indexator">
 </div>
 
+___Nota:___ _mi Obsidian tiene temas y snippets, pero la estructura del índice será la misma._
+
 ### Configuración
 
 Durante la ejecución, puedes cambiar los valores de 2 variables para modificar la salida del programa:
@@ -96,7 +105,7 @@ De esta manera, la transformación que hace el programa sería la siguiente:
 ###### -> INDEX.1.2.3.4.5.6
 ```
 
-_Usando el ejemplo anterior, si hubieramos utilizado Indexator con **SUBDIVISION** = `True`, la salida hubiera sido:_
+_Usando el ejemplo anterior, si hubieramos utilizado **Indexator** con **SUBDIVISION** = `True`, la salida hubiera sido:_
 ```
 # Índice de contenidos
 - [1.1 Definición de rendimiento](#1.1%20Definición%20de%20rendimiento)
