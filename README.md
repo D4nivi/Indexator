@@ -1,6 +1,6 @@
 # Indexator
 
-Indexator es un programa de terminal sencillo hecho en Python que **crea índices para Obsidian**. 
+Indexator es un programa de terminal sencillo hecho en Python que **crea índices markdown para Obsidian**.
 
 Es un programa hecho a mis gustos y a mi manera de organizar los apartados, por lo que la estructura no puede ser como te gustaría (en cuyo caso, siéntete libre de modificar el programa al gusto).
 
@@ -51,7 +51,7 @@ Para crear un índice de los contenidos de nuestra nota, copiamos directamente t
 
 Una vez hecho esto, **ejecutamos el programa en una terminal desde la carpeta del proyecto** y seleccionamos la función que queramos usar (ver [_Funciones_](#Funciones)). El archivo `indice.md` contendrá el indice, mientras que el archivo `bruto_indexado.md` contendrá el bruto con los encabezados modificados (con los números añadidos).
 
-___Nota:____Los archivos se sobreescriben cada vez que se llama a una función_.
+___Nota: Los archivos se sobreescriben cada vez que se llama a una función___
 
 
 ### Funciones
@@ -88,7 +88,7 @@ _Cómo se veria en Obsidian:_
     <img src="img/Ejemplo salida indexator.png" alt="Ejemplo salida indexator">
 </div>
 
-___Nota:___ _mi Obsidian tiene temas y snippets, pero la estructura del índice será la misma._
+___Nota: Mi Obsidian tiene temas y snippets, pero la estructura del índice será la misma.___
 
 ### Configuración
 
