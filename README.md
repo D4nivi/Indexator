@@ -49,7 +49,7 @@ Un índice se creará a partir de los encabezados markdown (las almohadillas #).
 
 Para crear un índice de los contenidos de nuestra nota, copiamos directamente todo el texto de la nota al archivo `bruto.md`. No es necesario copiar solamente los encabezados, podemos copiar el texto completo (incluidas etiquetas y bloques html, en el caso de que hubieran). El programa simplemente lo ignorará.
 
-Una vez hecho esto, **ejecutamos el programa en una terminal desde la carpeta del proyecto** y seleccionamos la función que queramos usar (ver [_Funciones_](#Funciones)). El archivo `indice.md` contendrá el indice, mientras que el archivo `bruto_indexado.md` contendrá el bruto con los encabezados modificados (con los números añadidos).
+Una vez hecho esto, **ejecutamos `main.py` en una terminal desde la carpeta del proyecto** y seleccionamos la función que queramos usar (ver [_Funciones_](#Funciones)). El archivo `indice.md` contendrá el indice, mientras que el archivo `bruto_indexado.md` contendrá el bruto con los encabezados modificados (con los números añadidos).
 
 ___Nota: Los archivos se sobreescriben cada vez que se llama a una función___
 
