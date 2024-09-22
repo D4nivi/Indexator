@@ -2,7 +2,7 @@
 
 Indexator es un programa de terminal sencillo hecho en Python que **crea índices markdown para Obsidian**.
 
-Es un programa hecho a mis gustos y a mi manera de organizar los apartados, por lo que la estructura no puede ser como te gustaría (en cuyo caso, siéntete libre de modificar el programa al gusto).
+Es un programa hecho a mis gustos y a mi manera de organizar los apartados, por lo que la estructura puede no ser como te gustaría (en cuyo caso, siéntete libre de modificar el programa a tu gusto).
 
 ## Requisitos
 Python 3.8 o superior: Puedes ver tu versión de Python con `python --version` o `python3 --version`.
