@@ -5,7 +5,7 @@ Indexator es un programa de terminal sencillo hecho en Python que **crea índice
 Es un programa hecho a mis gustos y a mi manera de organizar los apartados, por lo que la estructura no puede ser como te gustaría (en cuyo caso, siéntete libre de modificar el programa al gusto).
 
 ## Requisitos
-Python 3.8 o superior: Puedes ver tu versión de Python con `python --version` or `python3 --version`.
+Python 3.8 o superior: Puedes ver tu versión de Python con `python --version` o `python3 --version`.
 
 ## ¿Cómo usar?
 Imaginemos que tenemos una nota de Obsidian con el siguiente esquema (los ... representan texto):
@@ -37,7 +37,7 @@ Imaginemos que tenemos una nota de Obsidian con el siguiente esquema (los ... re
 ...
 
 ```
-Un índice se creará a partir de los encabezados markdown (las almohadillas #). Dependiendo del numero de almohadillas, el programa detecta y crea un subindice. La transformación que hace el programa de manera predeterminada es la siguiente:
+Un índice se creará a partir de los encabezados markdown (las almohadillas #). Dependiendo del numero de almohadillas, el programa detecta y crea un subíndice. La transformación que hace el programa de manera predeterminada es la siguiente:
 ```
 ## -> 1.
 ### -> 1.1
@@ -59,7 +59,7 @@ ___Nota: Los archivos se sobreescriben cada vez que se llama a una función___
 Indexator viene con 2 funciones para crear los indices:
 - **Indexator**. Crea índices ordenados **con números** a partir de encabezados _sin numeros_ (como el del ejemplo).
 
-- **Quasi-Indexator**. Crea índices ordenados **sin números** a partir de encabezados _con o sin numeros_. A diferencia de la anterior, está función no vuelca nada a `bruto_indexado.md`, ya que no se añaden número. Por ello, puede usarse si habías puesto numeros de antemano (o si quieres un índice sin números), por ejemplo:
+- **Quasi-Indexator**. Crea índices ordenados **sin números** a partir de encabezados _con o sin numeros_. A diferencia de la anterior, esta función no vuelca nada a `bruto_indexado.md`, ya que no se añaden números. Por ello, puede usarse si habías puesto numeros de antemano (o si quieres un índice sin números), por ejemplo:
 ```
 Ejemplo de contenido de bruto.md para usar función Quasi-Indexator
 
@@ -84,7 +84,7 @@ _Ejemplo de salida de función **Indexator** en `indice.md`._
 - [5. Programas de Prueba (Benchmarks)](#5.%20Programas%20de%20Prueba%20(Benchmarks))
 ---
 ```
-_Cómo se veria en Obsidian:_
+_Cómo se vería en Obsidian:_
 
 <div align="center">
     <img src="img/Ejemplo salida indexator.png" alt="Ejemplo salida indexator">
