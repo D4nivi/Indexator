@@ -6,10 +6,10 @@ Es un programa hecho a mis gustos y a mi manera de organizar los apartados, por 
 
 ## Índice de contenidos
 + [Requisitos](#Requisitos)
-+ [¿Cómo usar?](#¿Cómo%20usar?)
++ [¿Cómo usar?](#¿Cómo-usar?)
 + [Funciones](#Funciones)
 + [Configuración](#Configuración)
-+ [Notas Importantes](#Notas%20Importantes)
++ [Notas Importantes](#Notas-Importantes)
 
 ___Nota: este índice no ha sido creado con Indexator___
 
