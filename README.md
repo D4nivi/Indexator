@@ -2,13 +2,19 @@
 
 Indexator es un programa simple de Python que crea **índices Markdown**. Está pensado para ser usado en ***Obsidian***.
 
+Es un programa hecho a mis gustos y a mi manera de organizar los apartados, por lo que la estructura puede no ser como te gustaría (en cuyo caso, siéntete libre de modificar el programa a tu gusto).
+
 ## Índice de contenidos
++ [Requisitos](#Requisitos)
 + [¿Cómo usar?](#¿Cómo%20usar?)
 + [Funciones](#Funciones)
 + [Configuración](#Configuración)
 + [Notas Importantes](#Notas%20Importantes)
 
 ___Nota: este índice no ha sido creado con Indexator___
+
+## Requisitos
+Python 3.8 o superior: Puedes ver tu versión de Python con `python --version` o `python3 --version`.
 
 ## ¿Cómo usar?
 Imaginemos que tenemos una nota de obsidian con el siguiente esquema (supongamos que entre los encabezados hay texto):
