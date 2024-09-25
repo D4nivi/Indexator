@@ -6,7 +6,7 @@ Es un programa hecho a mis gustos y a mi manera de organizar los apartados, por 
 
 ## Índice de contenidos
 - [Requisitos](#Requisitos)
-- [¿Cómo usar?](#¿Cómo%20usar?)
+- [Cómo usar](#Cómo%20usar)
 - [Funciones](#Funciones)
 - [Configuración](#Configuración)
 - [Notas Importantes](#Notas%20Importantes)
