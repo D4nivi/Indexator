@@ -29,7 +29,7 @@ Imaginemos que tenemos una nota de obsidian con el siguiente esquema (supongamos
 ## Programas de Prueba (Benchmarks)
 
 ```
-Un índice se creará a partir de los encabezados markdown (las almohadillas #). Dependiendo del numero de almohadillas, el programa detecta y crea un subíndice. La transformación que hace el programa es la siguiente:
+Un índice se creará a partir de los encabezados Markdown (las almohadillas #). Dependiendo del numero de almohadillas, el programa detecta y crea un subíndice. La transformación que hace el programa es la siguiente:
 ```
 ## -> 1.
 ### -> 1.1
@@ -38,6 +38,7 @@ Un índice se creará a partir de los encabezados markdown (las almohadillas #).
 ##### -> 1.1.2.3.4
 ###### -> 1.1.2.3.4.5
 ```
+- ___Nota: los números son orientativos, en un caso real como este todos los números serían unos.___
 
 **Para crear un índice de nuestra nota**, copiamos directamente todo el texto anterior de la nota al archivo `bruto.md`. No es necesario copiar solamente los encabezados, podemos copiar el texto completo (incluidas etiquetas) en el caso de que hubiera. El programa simplemente lo ignorará.
 
@@ -121,7 +122,7 @@ _Tomando el ejemplo anterior, si hubiéramos utilizado Indexator con **SUBDIVISI
 - **INDEX**. Su valor predeterminado es `1`. Sólo se usa cuando **SUBDIVISION** = `True`.
 
 ## Notas Importantes
-- Cualquier línea que empiece por dos almohadillas y un espacio (## ) **será tomada como encabezado, aunque no lo sea**. Tener en cuenta si tu archivo contiene estos carácteres entre backsticks ```. Por esta razón no se ha usado **Indexator** para crear el Índice de este readme.
+- Cualquier línea que empiece por dos almohadillas y un espacio (## ) **será tomada como encabezado, aunque no lo sea**. Tener en cuenta si tu archivo contiene estos carácteres entre backsticks ```. Esta es la razón por la que no se ha usado **Indexator** para crear el índice de este readme.
 
 - El programa **no detecta encabezados** `h1` (una sola almohadilla). Está hecho a propósito, los encabezados `h1` se ven demasiado grandes para las notas de Obsidian.
 
@@ -134,7 +135,8 @@ _Tomando el ejemplo anterior, si hubiéramos utilizado Indexator con **SUBDIVISI
 	### 2.1 Titulo de ejemplo 2.1
 	---
 	```
-	- **Si pasas el bruto sin índice**, no tienes que preocuparte por nada. Nota que el programa detecta que no tiene índice **si no encuentra el encabezado** `# Índice de contenidos`.
+	- **Si pasas el bruto sin índice**, no tienes que preocuparte por nada, pero téngase en cuenta que el programa detecta que el bruto no tiene índice **si no encuentra el encabezado** `# Índice de contenidos`.
+
 En ambos casos, el índice se desechará y se creará uno nuevo, pero es importante que el bruto permanezca intacto (por ello la meticulosidad con el formato).
 
 - La variable **SUBDIVISION** es usada en las funciones **Indexator** y **Re_Indexator**. Podemos jugar con **Re_Indexator** y **SUBDIVISION** para hacer cambios en el formato de los índices. Por ejemplo, tenemos el siguiente contenido:
