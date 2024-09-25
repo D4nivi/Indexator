@@ -1,38 +1,29 @@
 # Indexator
 
-Indexator es un programa simple de Python que crea índices para Obsidian.
+Indexator es un programa simple de Python que crea **índices Markdown**. Está pensado para ser usado en ***Obsidian***.
+
+## Índice de contenidos
++ [¿Cómo usar?](#¿Cómo%20usar?)
++ [Funciones](#Funciones)
++ [Configuración](#Configuración)
++ [Notas Importantes](#Notas%20Importantes)
+
+___Nota: este índice no ha sido creado con Indexator___
 
 ## ¿Cómo usar?
-Imaginemos que tenemos una nota de obsidian con el siguiente esquema (los ... representan texto):
+Imaginemos que tenemos una nota de obsidian con el siguiente esquema (supongamos que entre los encabezados hay texto):
 
 ```
 ## Definición de rendimiento
-...
-...
-
 ## Métricas populares
-...
-
 ### Tiempo de ejecución
-...
-
 ### Otras métricas de rendimiento
-...
-...
-
 ## Ley de Amdahl
-...
-...
-
 ## Cómo comparar resultados
-...
-
-
 ## Programas de Prueba (Benchmarks)
-...
 
 ```
-Un índice se creará a partir de los encabezados markdown (las almohadillas #). Dependiendo del numero de almohadillas, el programa detecta y crea un subindice. La transformación que hace el programa es la siguiente:
+Un índice se creará a partir de los encabezados markdown (las almohadillas #). Dependiendo del numero de almohadillas, el programa detecta y crea un subíndice. La transformación que hace el programa es la siguiente:
 ```
 ## -> 1.
 ### -> 1.1
@@ -42,17 +33,22 @@ Un índice se creará a partir de los encabezados markdown (las almohadillas #).
 ###### -> 1.1.2.3.4.5
 ```
 
-Para crear un índice de nuestra nota, copiamos directamente todo el texto anterior de la nota al archivo `bruto.md`. No es necesario copiar solamente los encabezados, podemos copiar el texto completo (incluidas etiquetas) en el caso de que hubiera. El programa simplemente lo ignorará.
+**Para crear un índice de nuestra nota**, copiamos directamente todo el texto anterior de la nota al archivo `bruto.md`. No es necesario copiar solamente los encabezados, podemos copiar el texto completo (incluidas etiquetas) en el caso de que hubiera. El programa simplemente lo ignorará.
 
-Una vez hecho esto, ejecutamos el programa y seleccionamos la función que queramos usar (ver [_Funciones_](#Funciones)). El archivo `indice.md` contendrá el indice, mientras que el archivo `bruto_indexado.md` contendrá el bruto con los encabezados modificados (con los números añadidos).
+Una vez hecho esto, abrimos una terminal en la carpeta del proyecto y ejecutamos el programa:
+```python
+python main.py
+```
+Dentro del programa, **seleccionamos la función que queramos usar** (ver [_Funciones_](#Funciones)). El archivo `bruto_indexado.md` contendrá **el bruto con los encabezados modificados** (con los números añadidos) y **el índice** pegado al principio de la nota.
 
+## Funciones
+***Antes de usar cualquiera de las siguientes funciones***, ver las [Notas Importantes](#Notas%20Importantes).
 
-### Funciones
-
-Indexator viene con 2 funciones para crear los indices:
+Indexator viene con 3 funciones para crear los índices:
 - **Indexator**. Crea índices ordenados **con números** a partir de encabezados _sin numeros_ (como el del ejemplo).
 
 - **Quasi-Indexator**. Crea índices ordenados **sin números** a partir de encabezados _con o sin numeros_. De esta manera, puede usarse si habías puesto numeros de antemano, por ejemplo:
+
 ```
 ## 1. Definición de rendimiento
 ## 2. Métricas populares
@@ -63,7 +59,10 @@ Indexator viene con 2 funciones para crear los indices:
 ## 5. Programas de Prueba (Benchmarks)
 ```
 
-_Ejemplo de salida de función **Indexator** en `indice.md`._
+- **Re-Indexator**. **Actualiza el índice**. Funciona como una _versión mejorada_ de **Indexator**. El punto de esta función es **crear un índice de nuevo** cuando ya se ha creado uno con **Indexator** (o no), bien porque has añadido o eliminado contenido a tu nota (al principio o final).
+
+
+_Ejemplo de índice creado con la función **Indexator**_
 ```
 # Índice de contenidos
 - [1. Definición de rendimiento](#1.%20Definición%20de%20rendimiento)
@@ -77,10 +76,10 @@ _Ejemplo de salida de función **Indexator** en `indice.md`._
 ```
 _Cómo se veria en Obsidian:_
 
-### Configuración
+## Configuración
 
-Durante la ejecución, puedes cambiar los valores de 2 variables para modificar la salida del programa:
-- **SUBDIVISION**. Su valor predeterminado es `False`. Cuando vale `True`, añade **INDEX** al frente de los números del índice. Útil si creas apuntes por temas.
+Durante la ejecución, puedes cambiar los valores de **2 variables** para modificar la salida del programa:
+- **SUBDIVISION**. Su valor predeterminado es `False`. Cuando vale `True`, añade **INDEX** al frente de los números del índice.
 
 De esta manera, la transformación que hace el programa sería la siguiente:
 ```
@@ -92,7 +91,7 @@ De esta manera, la transformación que hace el programa sería la siguiente:
 ###### -> INDEX.1.2.3.4.5.6
 ```
 
-_Usando el ejemplo anterior, si hubieramos utilizado Indexator con **SUBDIVISION** = `True`, la salida hubiera sido:_
+_Tomando el ejemplo anterior, si hubiéramos utilizado Indexator con **SUBDIVISION** = `True`, la salida hubiera sido:_
 ```
 # Índice de contenidos
 - [1.1 Definición de rendimiento](#1.1%20Definición%20de%20rendimiento)
@@ -105,6 +104,57 @@ _Usando el ejemplo anterior, si hubieramos utilizado Indexator con **SUBDIVISION
 ---
 ```
 
-- **INDEX**. Su valor predeterminado es `1`. Solo se usa cuando **SUBDIVISION** = `True`.
+- **INDEX**. Su valor predeterminado es `1`. Sólo se usa cuando **SUBDIVISION** = `True`.
 
+## Notas Importantes
+- Cualquier línea que empiece por dos almohadillas y un espacio (## ) **será tomada como encabezado, aunque no lo sea**. Tener en cuenta si tu archivo contiene estos carácteres entre backsticks ```. Por esta razón no se ha usado **Indexator** para crear el Índice de este readme.
 
+- El programa **no detecta encabezados** `h1` (una sola almohadilla). Está hecho a propósito, los encabezados `h1` se ven demasiado grandes para las notas de Obsidian.
+
+- Cuando se usa la función **Re-Indexator**, es muy importante que el formato sea preciso:
+	- **Si pasas el bruto con índice**, es muy importante que esté escrito entre "---", de la siguiente manera:
+	```
+	---
+	## 1. Titulo de ejemplo 1
+	## 2. Titulo de ejemplo 2
+	### 2.1 Titulo de ejemplo 2.1
+	---
+	```
+	- **Si pasas el bruto sin índice**, no tienes que preocuparte por nada. Nota que el programa detecta que no tiene índice **si no encuentra el encabezado** `# Índice de contenidos`.
+En ambos casos, el índice se desechará y se creará uno nuevo, pero es importante que el bruto permanezca intacto (por ello la meticulosidad con el formato).
+
+- La variable **SUBDIVISION** es usada en las funciones **Indexator** y **Re_Indexator**. Podemos jugar con **Re_Indexator** y **SUBDIVISION** para hacer cambios en el formato de los índices. Por ejemplo, tenemos el siguiente contenido:
+```
+## 2.1 Definición de rendimiento
+## 2.2 Métricas populares
+### 1.2.1 Tiempo de ejecución
+### 2.2.2 Otras métricas de rendimiento
+#### MIPS
+#### MFLOPS
+## 2.3 Ley de Amdahl
+## 2.4 Cómo comparar resultados
+### Tiempo Total de Ejecución
+### Tiempo Total de Ejecución Ponderado
+### Tiempo Normalizado
+## 2.5 Programas de Prueba (Benchmarks)
+## Ejercicios Resueltos
+```
+En este caso, si quisiera conservar el `2.` delante de cada título, deberemos especificar que **SUBDIVISION** = `True` e **INDEX** = 2. El índice resultante se vería así:
+
+```
+## 2.1 Definición de rendimiento
+## 2.2 Métricas populares
+### 2.2.1 Tiempo de ejecución
+### 2.2.2 Otras métricas de rendimiento
+#### 2.2.2.1 MIPS
+#### 2.2.2.2 MFLOPS
+## 2.3 Ley de Amdahl
+## 2.4 Cómo comparar resultados
+### 2.4.1 Tiempo Total de Ejecución
+### 2.4.2 Tiempo Total de Ejecución Ponderado
+### 2.4.3 Tiempo Normalizado
+## 2.5 Programas de Prueba (Benchmarks)
+## 2.6 Ejercicios Resueltos
+```
+
+- Sin embargo, podríamos haber cambiado el `2.` por cualquier otro número modificando el valor de **INDEX** o, en su defecto, haberlo quitado, especificando que **SUBDIVISION** = `False`.
