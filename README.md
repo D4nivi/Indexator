@@ -56,6 +56,8 @@ Indexator viene con 3 funciones para crear los índices:
 - **Quasi-Indexator**. Crea índices ordenados **sin números** a partir de encabezados _con o sin numeros_. De esta manera, puede usarse si habías puesto numeros de antemano, por ejemplo:
 
 ```
+Ejemplo de contenido de bruto.md para usar función Quasi-Indexator
+
 ## 1. Definición de rendimiento
 ## 2. Métricas populares
 ### 2.1 Tiempo de ejecución
@@ -80,7 +82,13 @@ _Ejemplo de índice creado con la función **Indexator**_
 - [5. Programas de Prueba (Benchmarks)](#5.%20Programas%20de%20Prueba%20(Benchmarks))
 ---
 ```
-_Cómo se veria en Obsidian:_
+_Cómo se vería en Obsidian:_
+
+<div align="center">
+    <img src="img/Ejemplo salida indexator.png" alt="Ejemplo salida indexator">
+</div>
+
+___Nota: Mi Obsidian tiene temas y snippets, pero la estructura del índice será la misma.___
 
 ## Configuración
 
