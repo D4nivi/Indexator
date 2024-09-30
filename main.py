@@ -91,7 +91,7 @@ def indexator(path: str) -> None:
 
 # Ídem al anterior pero lo uso cuando ya tengo los numeros en los titulos (o cuando no quiero poner numeros)
 def quasi_indexator() -> None:
-    with open(RAW_PATH, "r", encoding="utf-8") as infile, open(INDEX_PATH, "w", encoding="utf-8") as outfile:
+    with open(RAW_PATH, "r", encoding="utf-8") as infile, open(RAWINDEX_PATH, "w", encoding="utf-8") as outfile:
         outfile.write("# Índice de contenidos\n")
         
         for line in infile:
