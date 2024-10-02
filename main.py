@@ -21,7 +21,13 @@ SUBDIVISION = False
 INDEX = 1
 
 def indexator(path: str) -> None:
-    with open(path, "r", encoding="utf-8") as infile, open(INDEX_PATH, "w", encoding="utf-8") as outfile, open(RAWINDEX_PATH, "w", encoding="utf-8") as tmpfile:
+    '''
+    infile: bruto.md (o .tmp.md si usamos re_indexator), archivo del que se lee
+    outfile: bruto_indexado.md, donde se escribe el output del programa
+    tmpfile: .indice.md, donde se escribe el índice para luego copiarlo en bruto_indexado.md
+    '''
+    with open(path, "r", encoding="utf-8") as infile, open(RAWINDEX_PATH, "w", encoding="utf-8") as outfile, open(INDEX_PATH, "w", encoding="utf-8") as tmpfile:
+        
         # Lista con numero de subindice para cada nivel de profundidad (empezando con 0)
         # Verlo así: INDEX.0.0.0.0.0.0 (la profundidad tiene rango 0-5)
         subindexes = [0,0,0,0,0,0]
@@ -31,7 +37,7 @@ def indexator(path: str) -> None:
         hastags_ant = 2
 
         # Escritura
-        outfile.write("# Índice de contenidos\n")
+        tmpfile.write("# Índice de contenidos\n")
         for line in infile:
             # Cadena del subindice
             subindex = ""
@@ -66,23 +72,23 @@ def indexator(path: str) -> None:
 
                 # Escribo lineas del indice y cada titulo en bruto_indexado.md añadiendoles el numero
                 if SUBDIVISION:
-                    outfile.write(f"{'\t' * depth}- [{INDEX}{subindex} {title}](#{INDEX}{subindex}%20{format_title})\n")
-                    tmpfile.write(f"{'#' * hastags} {INDEX}{subindex} {title}\n")
+                    tmpfile.write(f"{'\t' * depth}- [{INDEX}{subindex} {title}](#{INDEX}{subindex}%20{format_title})\n")
+                    outfile.write(f"{'#' * hastags} {INDEX}{subindex} {title}\n")
                 else:
                     if depth == 0:
                         subindex = subindex[1:] + '.'
                     else:
                         subindex = subindex[1:]
-                    outfile.write(f"{'\t' * depth}- [{subindex} {title}](#{subindex}%20{format_title})\n")
-                    tmpfile.write(f"{'#' * hastags} {subindex} {title}\n")
+                    tmpfile.write(f"{'\t' * depth}- [{subindex} {title}](#{subindex}%20{format_title})\n")
+                    outfile.write(f"{'#' * hastags} {subindex} {title}\n")
 
                 hastags_ant = hastags
             else:
                 # Si la linea no tiene hastags, la ignoro y solo lo copio en el bruto_indexado.md
-                tmpfile.write(line)
+                outfile.write(line)
         
         # Toque final
-        outfile.write("---\n")
+        tmpfile.write("---\n")
 
     # Añadimos el índice al archivo y borramos .index.md
     add_index()
@@ -91,8 +97,8 @@ def indexator(path: str) -> None:
 
 # Ídem al anterior pero lo uso cuando ya tengo los numeros en los titulos (o cuando no quiero poner numeros)
 def quasi_indexator() -> None:
-    with open(RAW_PATH, "r", encoding="utf-8") as infile, open(RAWINDEX_PATH, "w", encoding="utf-8") as outfile:
-        outfile.write("# Índice de contenidos\n")
+    with open(RAW_PATH, "r", encoding="utf-8") as infile, open(RAWINDEX_PATH, "w", encoding="utf-8") as outfile, open(INDEX_PATH, "w", encoding="utf-8") as tmpfile:
+        tmpfile.write("# Índice de contenidos\n")
         
         for line in infile:
             if line.startswith('##'):
@@ -102,9 +108,16 @@ def quasi_indexator() -> None:
                 title = line[hastags+1:].rstrip()
                 format_title = title.replace(" ", "%20")
 
-                outfile.write(f"{'\t' * depth}- [{title}](#{format_title})\n")
+                tmpfile.write(f"{'\t' * depth}- [{title}](#{format_title})\n")
+
+            # Al final siempre escribo la misma línea del encabezado, ya que no se modifica
+            outfile.write(line)
         
-        outfile.write("---\n")
+        tmpfile.write("---\n")
+
+    add_index()
+    os.remove(INDEX_PATH)
+    
 
 
 # Función para borrar índice (auxiliar)
