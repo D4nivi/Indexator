@@ -51,7 +51,7 @@ Dentro del programa, **seleccionamos la función que queramos usar** (ver [_Func
 ## Funciones
 ***Antes de usar cualquiera de las siguientes funciones***, ver [Notas Importantes](#Notas%20Importantes) y [Notas sobre las configuraciones](#notas-sobre-las-configuraciones).
 
-Indexator viene con 4 funciones para manejar los índices. Para los ejemplos de este apartado y los siguientes, suponer el esquema visto en el apartado [Cómo usar](#cómo-usar).
+Indexator viene con **4 funciones** para manejar los índices. Para los ejemplos de este apartado y los siguientes, suponer el esquema visto en el apartado [Cómo usar](#cómo-usar).
 - `Indexator`. Crea índices ordenados **con números** a partir de encabezados ***sin numeros*** y ***sin Índice de contenidos*** creado (como el del ejemplo). Usado la primera vez que se quiere indexar.
 
 _Ejemplo de índice creado con la función `Indexator`_
@@ -84,28 +84,28 @@ ___Nota: Mi Obsidian tiene temas y snippets, pero la estructura del índice ser�
 Durante la ejecución, puedes cambiar los valores de **4 variables** para modificar la salida del programa. Todas estas variables pueden usarse en conjunto, lo que hace que el indexado sea muy flexible.  
 - `SUBDIVISION`. Su valor predeterminado es `False`. Cuando vale `True`, añade **INDEX** al frente de los números del índice.
 
-De esta manera, la transformación que hace el programa sería la siguiente:
-```
-## -> INDEX.1
-### -> INDEX.1.2
-#### -> INDEX.1.2.3
-#### -> INDEX.1.2.3.4
-##### -> INDEX.1.2.3.4.5
-###### -> INDEX.1.2.3.4.5.6
-```
+	- De esta manera, la transformación que hace el programa sería la siguiente:
+	```
+	## -> INDEX.1
+	### -> INDEX.1.2
+	#### -> INDEX.1.2.3
+	#### -> INDEX.1.2.3.4
+	##### -> INDEX.1.2.3.4.5
+	###### -> INDEX.1.2.3.4.5.6
+	```
 
-_Tomando el ejemplo, si hubiéramos utilizado Indexator con **SUBDIVISION** = `True`, la salida hubiera sido:_
-```
-# Índice de contenidos
-- [1.1 Definición de rendimiento](#1.1%20Definición%20de%20rendimiento)
-- [1.2 Métricas populares](#2%20Métricas%20populares)
-	- [1.2.1 Tiempo de ejecución](#1.2.1%20Tiempo%20de%20ejecución)
-	- [1.2.2 Otras métricas de rendimiento](#1.2.2%20Otras%20métricas%20de%20rendimiento)
-- [1.3 Ley de Amdahl](#1.3%20Ley%20de%20Amdahl)
-- [1.4 Cómo comparar resultados](#1.4%20Cómo%20comparar%20resultados)
-- [1.5 Programas de Prueba (Benchmarks)](#1.5%20Programas%20de%20Prueba%20(Benchmarks))
----
-```
+	- Tomando el ejemplo, si hubiéramos utilizado Indexator con **SUBDIVISION** = `True`, la salida hubiera sido:
+	```
+	# Índice de contenidos
+	- [1.1 Definición de rendimiento](#1.1%20Definición%20de%20rendimiento)
+	- [1.2 Métricas populares](#2%20Métricas%20populares)
+		- [1.2.1 Tiempo de ejecución](#1.2.1%20Tiempo%20de%20ejecución)
+		- [1.2.2 Otras métricas de rendimiento](#1.2.2%20Otras%20métricas%20de%20rendimiento)
+	- [1.3 Ley de Amdahl](#1.3%20Ley%20de%20Amdahl)
+	- [1.4 Cómo comparar resultados](#1.4%20Cómo%20comparar%20resultados)
+	- [1.5 Programas de Prueba (Benchmarks)](#1.5%20Programas%20de%20Prueba%20(Benchmarks))
+	---
+	```
 
 - `INDEX`. Su valor predeterminado es `1`. Sólo se usa cuando **SUBDIVISION** = `True`.
 
