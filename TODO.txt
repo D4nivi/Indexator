@@ -1,0 +1,10 @@
+2. Cambiar variable INDEX_HEADERS para que sirva para indexar o no los encabezados.
+- Si la variable vale 0, indexa todos los encabezados (valor predeterminado).
+- Si la variable vale x-6, no indexa los encabezados entre x en adelante, con 2 <= x <= 6.
+De-Indexator deberia usar ahora INDEX_HEADERS = 2.
+
+4. Hacer que el programa edite la nota de obsidian directamente, sin tener que copiar el texto en un .txt. Guardar una copia de seguridad del archivo si se hace esto.
+Para esto, hacer que si no detecta las 2 barras y el indice entre las 3 barras, no edita la nota y salta un error.
+
+5. Una vez hecho la tarea 4, convertir el programa en un comando de terminal que se pueda ejecutar especificando las opciones.
+Añadir manejo de errores por si el directorio no existe, los comanos no se usan correctamente, etc.
