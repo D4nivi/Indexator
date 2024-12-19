@@ -9,7 +9,7 @@ Es un programa hecho a mis gustos y a mi manera de organizar los apartados, por 
 - [Cómo usar](#cómo-usar)
 - [Funciones](#Funciones)
 - [Configuración](#Configuración)
-	- [Notas sobre las configuraciones](#notas-sobre-las-configuraciones)
+	- [Notas sobre las variables](#notas-sobre-las-variables)
 - [Notas Importantes](#notas-importantes)
 
 ___Nota: este índice no ha sido creado con Indexator___
@@ -139,7 +139,7 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 ---
 ```
 
-### Notas sobre las configuraciones
+### Notas sobre las variables
 - La variable `SUBDIVISION` es tomada en cuenta en las funciones `Indexator` y `Re_Indexator`, pero estas no detectan si los encabezados han sido creados usando esta opción. Tómemos el siguiente ejemplo:
 	```
 	## 2.1 Definición de rendimiento
