@@ -9,6 +9,7 @@ Es un programa hecho a mis gustos y a mi manera de organizar los apartados, por 
 - [Cómo usar](#cómo-usar)
 - [Funciones](#Funciones)
 - [Configuración](#Configuración)
+	- [Notas sobre las configuraciones](#notas-sobre-las-configuraciones)
 - [Notas Importantes](#notas-importantes)
 
 ___Nota: este índice no ha sido creado con Indexator___
