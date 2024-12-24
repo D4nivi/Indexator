@@ -96,7 +96,7 @@ def indexator(path: str) -> None:
                 format_title = title.replace(" ", "%20")
 
                 # Escribo líneas del índice y cada título en bruto_indexado.md añadiéndoles el número
-                if hashtags >= NO_INDEX_HEADERS:
+                if NO_INDEX_HEADERS > 0 and hashtags >= NO_INDEX_HEADERS:
                     tmpfile.write(f"{'\t' * depth}- [{title}](#{format_title})\n")
                     outfile.write(f"{'#' * hashtags} {title}\n")
                 elif SUBDIVISION:
