@@ -1,0 +1,16 @@
+[
+    {
+        "name": "hola",
+        "subdivision": "true",
+        "index": "1",
+        "ignore_headers": "0",
+        "no_index_headers": "0"
+    },
+    {
+        "name": "ooo",
+        "subdivision": "false",
+        "index": "2",
+        "ignore_headers": "2",
+        "no_index_headers": "2"
+    }
+]
