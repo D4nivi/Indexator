@@ -1,7 +1,7 @@
 import os
 import re
 import fileinput
-from funciones.presets import read_json, get_contents
+from funciones.presets import read_json, get_contents, get_preset, MAX_PRESETS
 
 ##### RUTAS A ARCHIVOS #####
 # Path al bruto.md, donde se pega el bruto a indexar.
@@ -242,7 +242,6 @@ def set_no_index_headers(value: int | None = None) -> None:
 
 
 ##### MENÚ #####
-# TODO: Añadir opciones para ver presets, usar preset actual (primero de la lista) y añadir/eliminar presets
 def menu() -> None:
     # Título sacado de https://patorjk.com/software/taag. Fuente: Big
     titulo = r'''  _____               _                         _                  
@@ -265,19 +264,20 @@ def menu() -> None:
 
     print("Configuración de presets")
     if read_json():
-        print(f"(10) Indexar con preset (actual: '{get_contents()[0]["name"]}')")
-        print("(11) Cambiar preset actual")
-        print("(12) Listar presets")
+
+        if get_preset(0) != []:
+            print(f"(10) Indexar con primer preset ('{get_preset(0)["name"]}')")
         
-        if len(get_contents()) <= 10:
-            print("(13) Crear un preset (MÁX. 10)")
+        if len(get_contents()) > 1:
+            print("(11) Indexar con otro preset")
+        
+        if len(get_contents()) < MAX_PRESETS:
+            print(f"(12) Crear un preset ({len(get_contents())} preset(s) creados, MÁX. {MAX_PRESETS})")
         else:
-            print("(13) Crear un preset (LÍMITE ALCANZADO)")
+            print("(12) Crear un preset (LÍMITE ALCANZADO)")
 
         if len(get_contents()) > 0:
-            print("(14) Eliminar presets.")
+            print("(13) Eliminar un preset\n(14) Listar presets")
 
-    print()
-
-    print("(0) Salir\n")
+    print("\n(0) Salir\n")
     print("Opcion: ", end="")
