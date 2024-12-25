@@ -74,7 +74,7 @@ def indexator(path = RAW_PATH) -> None:
                 format_title = title.replace(" ", "%20")
 
                 # Escribo líneas del índice y cada título en bruto_indexado.md añadiéndoles el número
-                if NO_INDEX_HEADERS > 0 and hashtags >= NO_INDEX_HEADERS:
+                if 0 < NO_INDEX_HEADERS <= hashtags:
                     tmpfile.write(f"{'\t' * depth}- [{title}](#{format_title})\n")
                     outfile.write(f"{'#' * hashtags} {title}\n")
                 elif SUBDIVISION:
@@ -265,7 +265,7 @@ def menu() -> None:
     print("Configuración de presets")
     if read_json():
 
-        if get_preset(0) != []:
+        if get_preset(0):
             print(f"(10) Indexar con primer preset ('{get_preset(0)["name"]}')")
         
         if len(get_contents()) > 1:

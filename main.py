@@ -1,7 +1,7 @@
 import os
 from funciones.indexators import indexator, quasi_indexator, re_indexator, menu
 from funciones.indexators import set_subdivision, set_index, set_ignore_headers, set_no_index_headers
-from funciones.presets import MAX_PRESETS, list_presets, add_preset, delete_preset, get_contents, get_preset
+from funciones.presets import list_presets, add_preset, delete_preset, get_contents, get_preset
 
 ##### FUNCIONES AUXILIARES PARA EL PROGRAMA PRINCIPAL #####
 def pause(msg: str = "") -> None:
@@ -21,10 +21,9 @@ def main():
     opcion = ''
 
     while opcion != '0':
-        contents = get_contents()
-
         try:
-            menu()
+            menu()                      # Aquí se lee presets.json
+            contents = get_contents()
             opcion = input()
 
             if opcion == '0':

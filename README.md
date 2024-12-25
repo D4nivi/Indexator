@@ -29,7 +29,7 @@ Imaginemos que tenemos una nota de obsidian con el siguiente esquema (supongamos
 ## Cómo comparar resultados
 ## Programas de Prueba (Benchmarks)
 ```
-Un índice se creará a partir de los encabezados Markdown (las almohadillas #). Dependiendo del numero de almohadillas, el programa detecta y crea un subíndice. La transformación que hace el programa es la siguiente:
+Un índice se creará a partir de los encabezados Markdown (las almohadillas #). Dependiendo del número de almohadillas, el programa detecta y crea un subíndice. La transformación que hace el programa es la siguiente:
 ```
 ## -> 1.
 ### -> 1.1
@@ -107,7 +107,7 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 	---
 	```
 
-- `INDEX`. Su valor predeterminado es `1`. Sólo se usa cuando **SUBDIVISION** = `True`.
+- `INDEX`. Su valor predeterminado es `1`. Solo se usa cuando **SUBDIVISION** = `True`.
 
 
 - `IGNORE_HEADERS`. Indica qué tamaños de encabezado se ignoran (no se ponen en el índice). Ignora los encabezados mayores o iguales a `hN`, siendo `N` el valor de `IGNORE_HEADERS`. 
@@ -126,7 +126,7 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 - `NO_INDEX_HEADERS`. Indica qué tamaños de encabezado **no se indexan**. No indexa los encabezados mayores o iguales a `hN`, siendo `N` el valor de `IGNORE_HEADERS`.
 
 	- Su valor por defecto es 0, lo que equivale a indexar todos los encabezados.
-	- **Sus valores válidos van desde 2-6**. Supongamos el ejemplo anterior, imaginemos que queremos dejar los encabezados `h3` en el índice pero no queremos indexarlos. Entonces usariamos `Indexator` con `NO_INDEX_HEADERS = 3`, lo que nos daría:
+	- **Sus valores válidos van desde 2-6**. Supongamos el ejemplo anterior, imaginemos que queremos dejar los encabezados `h3` en el índice, pero no queremos indexarlos. Entonces usariamos `Indexator` con `NO_INDEX_HEADERS = 3`, lo que nos daría:
 ```
 # Índice de contenidos
 - [1. Definición de rendimiento](#1.%20Definición%20de%20rendimiento)

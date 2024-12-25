@@ -12,24 +12,26 @@ MAX_PRESETS = 20
 def read_json() -> bool:
     global CONTENTS
 
-    if os.path.getsize(PRESETS_PATH) != 0:
-        try:
-            jfile = open(PRESETS_PATH, "r")
+    try:
+        jfile = open(PRESETS_PATH, "r")
+
+        # Si pongo esto fuera del try-except no comprueba los permisos si el archivo está vacío
+        if os.path.getsize(PRESETS_PATH) != 0:
             CONTENTS = json.load(jfile)
 
-        except FileNotFoundError:
-            print(f"Archivo 'presets.json' no encontrado en {os.getcwd()}.")
-            CONTENTS = None
+    except FileNotFoundError:
+        print(f"Archivo 'presets.json' no encontrado en {os.getcwd()}.")
+        CONTENTS = None
 
-        except PermissionError:
-            print(f"No se ha podido leer '{PRESETS_PATH}': Permiso denegado.")
-            CONTENTS = None
+    except PermissionError:
+        print(f"No se ha podido acceder a '{PRESETS_PATH}': Permiso denegado.")
+        CONTENTS = None
 
-        except json.JSONDecodeError:
-            print(f"No se ha podido leer '{PRESETS_PATH}': Error de formato.")
-            CONTENTS = None
+    except json.JSONDecodeError:
+        print(f"No se ha podido leer '{PRESETS_PATH}': Error de formato.")
+        CONTENTS = None
     
-    return CONTENTS != None
+    return CONTENTS is not None
 
 def list_presets() -> None:
     print("\n----- Lista de presets -----")
@@ -49,7 +51,7 @@ def create_preset() -> dict:
         taken_names.append(CONTENTS[i]["name"])
 
     while not 0 < len(name) < 20 or name in taken_names:
-        name = input("Introduce el nombre del preset (1-20 caracteres): ")
+        name = input("Introduce el nombre del preset (1-20 caracteres): ").strip()
 
         if len(name) > 20:
             print("Tamaño de nombre excedido.\n")
@@ -60,12 +62,12 @@ def create_preset() -> dict:
     # Obtener variables
     print("\nSUBDIVISION: True | False\nINDEX: >0\nIGNORE_HEADERS: (0|[2-6])\nNO_INDEX_HEADERS: (0|[2-6])\n")
     valores = input("Introduce los valores para las variables (Ejemplo: true 2 0 0): ").strip()
-    entrada = re.fullmatch(r"(?i)(True|False)\ +(0|[1-9]\d*)\ +(0|[2-6])\ +(0|[2-6])", valores)
+    entrada = re.fullmatch(r"(?i)(True|False) +(0|[1-9]\d*) +(0|[2-6]) +(0|[2-6])", valores)
 
     while not entrada:
         print("Formato de entrada inválido.\n")
         valores = input("Introduce los valores para las variables: ").strip()
-        entrada = re.fullmatch(r"(?i)(True|False)\ +([1-9]\d*)\ +(0|[2-6])\ +(0|[2-6])", valores)
+        entrada = re.fullmatch(r"(?i)(True|False) +([1-9]\d*) +(0|[2-6]) +(0|[2-6])", valores)
 
     return {
         "name": name,
@@ -104,7 +106,7 @@ def delete_preset() -> bool:
     for i in range(len(CONTENTS)):
         print(CONTENTS[i]["name"])
 
-    name = input("\nEscribe el nombre del preset a eliminar: ")
+    name = input("\nEscribe el nombre del preset a eliminar: ").strip()
     nuevos_presets = [preset for preset in CONTENTS if preset["name"] != name]
 
     if len(nuevos_presets) == len(CONTENTS):
@@ -117,6 +119,9 @@ def delete_preset() -> bool:
     return True
 
 def get_contents() -> list:
+    '''
+    La función no debe usarse antes de leer los contenidos de `presets.json`.
+    '''
     return CONTENTS
 
 def get_preset(n: int) -> str | list:
