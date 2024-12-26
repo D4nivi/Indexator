@@ -8,17 +8,18 @@ Es un programa hecho a mis gustos y a mi manera de organizar los apartados, por 
 - [Requisitos](#Requisitos)
 - [Cómo usar](#cómo-usar)
 - [Funciones](#Funciones)
-- [Configuración](#Configuración)
+- [Variables](#Variables)
 	- [Notas sobre las variables](#notas-sobre-las-variables)
+- [Configuraciones de variables (presets)](#configuraciones-de-variables-presets)
 - [Notas Importantes](#notas-importantes)
 
 ___Nota: este índice no ha sido creado con Indexator___
 
 ## Requisitos
-Python 3.10 o superior: Puedes ver tu versión de Python con `python --version` o `python3 --version`.
+Python 3.8 o superior: Puedes ver tu versión de Python con `python --version` o `python3 --version`.
 
 ## Cómo usar
-Imaginemos que tenemos una nota de obsidian con el siguiente esquema (supongamos que entre los encabezados hay texto):
+Imaginemos que tenemos una nota de Obsidian con el siguiente esquema (supongamos que entre los encabezados hay texto):
 
 ```
 ## Definición de rendimiento
@@ -29,7 +30,7 @@ Imaginemos que tenemos una nota de obsidian con el siguiente esquema (supongamos
 ## Cómo comparar resultados
 ## Programas de Prueba (Benchmarks)
 ```
-Un índice se creará a partir de los encabezados Markdown (las almohadillas #). Dependiendo del numero de almohadillas, el programa detecta y crea un subíndice. La transformación que hace el programa es la siguiente:
+Un índice se creará a partir de los encabezados Markdown (las almohadillas #). Dependiendo del número de almohadillas, el programa detecta y crea un subíndice. La transformación que hace el programa es la siguiente:
 ```
 ## -> 1.
 ### -> 1.1
@@ -46,10 +47,31 @@ Una vez hecho esto, abrimos una terminal en la carpeta del proyecto y ejecutamos
 ```python
 python main.py
 ```
-Dentro del programa, **seleccionamos la función que queramos usar** (ver [_Funciones_](#Funciones)). El archivo `bruto_indexado.md` contendrá **el bruto con los encabezados modificados** (con los números añadidos) y **el índice** pegado al principio de la nota.
+Al ejecutar el programa <strong>por <u>primera vez</u></strong> nos aparecerá un **menú** como el siguiente:
+
+<div align="center">
+    <img src="img/Menú indexator primera ejecución.png" width="70%" alt="Ejemplo salida indexator">
+</div>
+
+En este menú podemos seleccionar la **función que queramos usar para indexar** (ver [_Funciones_](#Funciones)). El archivo `bruto_indexado.md` contendrá la salida del programa: **el bruto con los encabezados modificados** (con los números añadidos) y **el índice** pegado al principio de la nota.
+
+En la <u><strong>Configuracion de variables</strong></u> podemos **cambiar los valores de algunas variables** para modificar el formato del indexado y el índice. Estas variables se explican en el apartado [_Variables_](#variables).
+
+En la <u><strong>Configuracion de presets</strong></u> tenemos solo una opción, para crear **presets**. Si pretendes usar varias veces una misma configuración de variables (que no sea la predeterminada), puedes **guardarlas en un preset** y usarlo para indexar sin tener que cambiar los valores de las variables manualmente. 
+
+Cuando crees presets, aparecerán más opciones en el menú:
+
+<div align="center">
+    <img src="img/Menú indexator tras crear 2 presets.png" width="70%" alt="Ejemplo salida indexator">
+</div>
+
+- Para indexar con el primer preset que hayas creado, usas la opción (10). Esta opción siempre usará el primer preset.
+- Si creas más presets, puedes usarlos con la opción (11).
+- La opción (14) muestra los nombres y valores de las variables para todos los presets.
+- Para cancelar cualquier operación en curso, puedes usar `Ctrl+C`. Para salir forzosamente del programa, usa `Ctrl+D`.
 
 ## Funciones
-***Antes de usar cualquiera de las siguientes funciones***, ver [Notas Importantes](#Notas%20Importantes) y [Notas sobre las configuraciones](#notas-sobre-las-configuraciones).
+***Antes de usar cualquiera de las siguientes funciones***, ver [Notas Importantes](#Notas%20Importantes) y [Notas sobre las variables](#notas-sobre-las-variables).
 
 Indexator viene con **4 funciones** para manejar los índices. Para los ejemplos de este apartado y los siguientes, suponer el esquema visto en el apartado [Cómo usar](#cómo-usar).
 - `Indexator`. Crea índices ordenados **con números** a partir de encabezados ***sin numeros*** y ***sin Índice de contenidos*** creado (como el del ejemplo). Usado la primera vez que se quiere indexar.
@@ -79,10 +101,10 @@ ___Nota: Mi Obsidian tiene temas y snippets, pero la estructura del índice ser�
 - `Re-Indexator`. **Actualiza el índice**. Funciona como una _versión mejorada_ de `Indexator`. El punto de esta función es **crear un índice de nuevo** cuando ya se ha creado uno con el programa (o no), bien porque has añadido o eliminado contenido a tu nota (al principio o final).
 
 - `De-Indexator`. Borra el **Índice de Contenidos** y los índices de los títulos.
-## Configuración
+## Variables
 
 Durante la ejecución, puedes cambiar los valores de **4 variables** para modificar la salida del programa. Todas estas variables pueden usarse en conjunto, lo que hace que el indexado sea muy flexible.  
-- `SUBDIVISION`. Su valor predeterminado es `False`. Cuando vale `True`, añade **INDEX** al frente de los números del índice.
+- `SUBDIVISION`. Su valor predeterminado es `False`. Cuando vale `True`, añade `INDEX` al frente de los números del índice.
 
 	- De esta manera, la transformación que hace el programa sería la siguiente:
 	```
@@ -94,7 +116,7 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 	###### -> INDEX.1.2.3.4.5.6
 	```
 
-	- Tomando el ejemplo, si hubiéramos utilizado Indexator con **SUBDIVISION** = `True`, la salida hubiera sido:
+	- Tomando el ejemplo, si hubiéramos utilizado Indexator con `SUBDIVISION = True`, la salida hubiera sido:
 	```
 	# Índice de contenidos
 	- [1.1 Definición de rendimiento](#1.1%20Definición%20de%20rendimiento)
@@ -107,7 +129,7 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 	---
 	```
 
-- `INDEX`. Su valor predeterminado es `1`. Sólo se usa cuando **SUBDIVISION** = `True`.
+- `INDEX`. Su valor predeterminado es `1`. Solo se usa cuando `SUBDIVISION = True`.
 
 
 - `IGNORE_HEADERS`. Indica qué tamaños de encabezado se ignoran (no se ponen en el índice). Ignora los encabezados mayores o iguales a `hN`, siendo `N` el valor de `IGNORE_HEADERS`. 
@@ -123,10 +145,10 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 ---
 ```
 
-- `NO_INDEX_HEADERS`. Indica qué tamaños de encabezado **no se indexan**. No indexa los encabezados mayores o iguales a `hN`, siendo `N` el valor de `IGNORE_HEADERS`.
+- `NO_INDEX_HEADERS`. Indica qué tamaños de encabezado **no se indexan**. No indexa los encabezados mayores o iguales a `hN`, siendo `N` el valor de `NO_INDEX_HEADERS`.
 
 	- Su valor por defecto es 0, lo que equivale a indexar todos los encabezados.
-	- **Sus valores válidos van desde 2-6**. Supongamos el ejemplo anterior, imaginemos que queremos dejar los encabezados `h3` en el índice pero no queremos indexarlos. Entonces usariamos `Indexator` con `NO_INDEX_HEADERS = 3`, lo que nos daría:
+	- **Sus valores válidos van desde 2-6**. Supongamos el ejemplo anterior, imaginemos que queremos dejar los encabezados `h3` en el índice, pero no queremos indexarlos. Entonces usariamos `Indexator` con `NO_INDEX_HEADERS = 3`, lo que nos daría:
 ```
 # Índice de contenidos
 - [1. Definición de rendimiento](#1.%20Definición%20de%20rendimiento)
@@ -140,7 +162,7 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 ```
 
 ### Notas sobre las variables
-- La variable `SUBDIVISION` es tomada en cuenta en las funciones `Indexator` y `Re_Indexator`, pero estas no detectan si los encabezados han sido creados usando esta opción. Tómemos el siguiente ejemplo:
+- La variable `SUBDIVISION` es tomada en cuenta en las funciones `Indexator` y `Re-Indexator`, pero estas no detectan si los encabezados han sido creados usando esta opción. Tómemos el siguiente ejemplo:
 	```
 	## 2.1 Definición de rendimiento
 	## 2.2 Métricas populares
@@ -156,7 +178,7 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 	## 2.5 Programas de Prueba (Benchmarks)
 	## Ejercicios Resueltos
 	```
-	- En este caso, yo quiero indexar los nuevos apartados. Si quisiera conservar el `2.` delante de cada título al usar `Re_Indexator`, debo especificar de nuevo que `SUBDIVISION = True` e `INDEX = 2`. El índice resultante se vería así:
+	- En este caso, yo quiero indexar los nuevos apartados. Si quisiera conservar el `2.` delante de cada título al usar `Re-Indexator`, debo especificar de nuevo que `SUBDIVISION = True` e `INDEX = 2`. El índice resultante se vería así:
 
 		```
 		## 2.1 Definición de rendimiento
@@ -183,16 +205,40 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 
 - Usar `Re-Indexator` con `NO_INDEX_HEADERS = 2` equivale a usar `Quasi-Indexator`.
 
+## Configuraciones de variables (presets)
+Para evitar tener que memorizar los valores de las variables para un tipo de indexado que hagas recurrentemente, el programa te permite crear **presets**: configuraciones de variables que puedes usar para indexar. Estas configuraciones se guardan en el archivo `presets.json`.
+
+Para crear un preset, usa la opción 12 del menú. Se te pedirá un nombre y los valores de las variables. Esto último requiere ser introducido siguiendo un patrón ordenado:
+```
+             subdivision     index     ignore_headers     no_index_headers
+```
+
+A continuación se muestran algunos ejemplos de entradas que acepta el programa:
+```
+True 1 0 0       # Indexado normal con subíndice 1
+False 2 0 0      # Indexado normal (subdivision es False)
+false 2 3 0      # Indexado sin poner encabezados h3 y superior en el índice
+FaLsE 0 3 3      # Ídem pero además sin indexar los encabezados h3 y superior
+0 0 3 3          # Ídem al anterior
+```
+___Notas Importantes:___ 
+- `SUBDIVISION` puede tomar valores 1 o 0 en lugar de `True` o `False`, respectivamente. El programa ignora mayúsculas y minúsculas cuando se comprueba su valor.
+
+- El valor de `INDEX` debe ser válido (mayor que 0) aunque `SUBDIVISION` sea `False`.
+
+- Puede haber espacios de más antes/después/entre las variables.
+
+- Cuando se **crea**/**elimina** un preset, el programa solo mostrará mensajes si se produce un error.
+
+Cabe resaltar que estas configuraciones pueden usarse tanto como si se indexa por primera vez como si se quiere volver a indexar, ya que se usa la función `Re-Indexator`.
 
 ## Notas Importantes
-- No seas bobo y evita introducir valores no numéricos al intentar cambiar el valor de las variables de [Configuración](#configuración). 
+- El programa **no detecta encabezados** `h1` (una sola almohadilla). Está hecho a propósito, los encabezados `h1` se ven demasiado grandes para las notas de Obsidian y personalmente no me gusta como quedan.
 
-- El programa **no detecta encabezados** `h1` (una sola almohadilla). Está hecho a propósito, los encabezados `h1` se ven demasiado grandes para las notas de Obsidian.
-
-- Cualquier línea que empiece por dos almohadillas y un espacio (## ) **será tomada como encabezado, aunque no lo sea**. Tener en cuenta si tu archivo contiene estos carácteres entre backsticks ```. Esta es la razón por la que no se ha usado **Indexator** para crear el índice de este readme.
+- Cualquier línea que empiece por 2-6 almohadillas y un espacio (## ) **será tomada como encabezado, aunque no lo sea**. Tener en cuenta si tu archivo contiene estos carácteres entre backsticks ```, como en los ejemplos de este readme.
 
 - Cuando se usa la función `Re-Indexator`, es muy importante que el formato sea preciso:
-	- **Si pasas el bruto con índice**, es muy importante que esté escrito entre "---", de la siguiente manera:
+	- <strong>Si pasas el bruto <u>con índice</u></strong>, es muy importante que esté escrito entre "---", de la siguiente manera:
 	```
 	---
 	## 1. Titulo de ejemplo 1
@@ -200,6 +246,6 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 	### 2.1 Titulo de ejemplo 2.1
 	---
 	```
-	- **Si pasas el bruto sin índice**, no tienes que preocuparte por nada, pero téngase en cuenta que el programa detecta que el bruto no tiene índice **si no encuentra el encabezado** `# Índice de contenidos`.
+	- <strong>Si pasas el bruto <u>sin índice</u></strong>, no tienes que preocuparte por nada, pero téngase en cuenta que el programa detecta que el bruto no tiene índice **si no encuentra el encabezado** `# Índice de contenidos`.
 
-	- En ambos casos, el índice se desechará y se creará uno nuevo, pero es importante que el bruto permanezca intacto (por ello la meticulosidad con el formato).
+	- En ambos casos, el índice se borrará y se creará uno nuevo. Es de gran importancia que se cumpla el formato especificado, de lo contrario el programa podría no borrar el índice o no indexar correctamente.
