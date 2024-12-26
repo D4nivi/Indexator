@@ -71,7 +71,7 @@ Cuando crees presets, aparecerán más opciones en el menú:
 - Para cancelar cualquier operación en curso, puedes usar `Ctrl+C`. Para salir forzosamente del programa, usa `Ctrl+D`.
 
 ## Funciones
-***Antes de usar cualquiera de las siguientes funciones***, ver [Notas Importantes](#Notas%20Importantes) y [Notas sobre las variable](#notas-sobre-las-variables).
+***Antes de usar cualquiera de las siguientes funciones***, ver [Notas Importantes](#Notas%20Importantes) y [Notas sobre las variables](#notas-sobre-las-variables).
 
 Indexator viene con **4 funciones** para manejar los índices. Para los ejemplos de este apartado y los siguientes, suponer el esquema visto en el apartado [Cómo usar](#cómo-usar).
 - `Indexator`. Crea índices ordenados **con números** a partir de encabezados ***sin numeros*** y ***sin Índice de contenidos*** creado (como el del ejemplo). Usado la primera vez que se quiere indexar.
@@ -210,16 +210,16 @@ Para evitar tener que memorizar los valores de las variables para un tipo de ind
 
 Para crear un preset, usa la opción 12 del menú. Se te pedirá un nombre y los valores de las variables. Esto último requiere ser introducido siguiendo un patrón ordenado:
 ```
-            subdivision     index     ignore_headers     no_index_headers
+             subdivision     index     ignore_headers     no_index_headers
 ```
 
 A continuación se muestran algunos ejemplos de entradas que acepta el programa:
 ```
-True 1 0 0    # Indexado normal con subíndice 1
-False 2 0 0   # Indexado normal (subdivision es False)
-false 2 3 0   # Indexado sin poner encabezados h3 y superior en el índice
-FaLsE 0 3 3   # Ídem pero además sin indexar los encabezados h3 y superior
-0 0 3 3       # Ídem al anterior
+True 1 0 0       # Indexado normal con subíndice 1
+False 2 0 0      # Indexado normal (subdivision es False)
+false 2 3 0      # Indexado sin poner encabezados h3 y superior en el índice
+FaLsE 0 3 3      # Ídem pero además sin indexar los encabezados h3 y superior
+0 0 3 3          # Ídem al anterior
 ```
 ___Notas Importantes:___ 
 - `SUBDIVISION` puede tomar valores 1 o 0 en lugar de `True` o `False`, respectivamente. El programa ignora mayúsculas y minúsculas cuando se comprueba su valor.
