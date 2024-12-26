@@ -47,7 +47,7 @@ Una vez hecho esto, abrimos una terminal en la carpeta del proyecto y ejecutamos
 ```python
 python main.py
 ```
-Al ejecutar el programa **por <u>primera vez</u>** nos aparecerá un **menú** como el siguiente:
+Al ejecutar el programa <strong>por <u>primera vez</u></strong> nos aparecerá un **menú** como el siguiente:
 
 <div align="center">
     <img src="img/Menú indexator primera ejecución.png" width="70%" alt="Ejemplo salida indexator">
@@ -55,9 +55,9 @@ Al ejecutar el programa **por <u>primera vez</u>** nos aparecerá un **menú** c
 
 En este menú podemos seleccionar la **función que queramos usar para indexar** (ver [_Funciones_](#Funciones)). El archivo `bruto_indexado.md` contendrá la salida del programa: **el bruto con los encabezados modificados** (con los números añadidos) y **el índice** pegado al principio de la nota.
 
-En la **<u>Configuracion de variables</u>** podemos **cambiar los valores de algunas variables** para modificar el formato del indexado y el índice. Estas variables se explican en el apartado [_Variables_](#variables).
+En la <u><strong>Configuracion de variables</strong></u> podemos **cambiar los valores de algunas variables** para modificar el formato del indexado y el índice. Estas variables se explican en el apartado [_Variables_](#variables).
 
-En la **<u>Configuracion de presets</u>** tenemos solo una opción, para crear **presets**. Si pretendes usar varias veces una misma configuración de variables (que no sea la predeterminada), puedes **guardarlas en un preset** y usarlo para indexar sin tener que cambiar los valores de las variables manualmente. 
+En la <u><strong>Configuracion de presets</strong></u> tenemos solo una opción, para crear **presets**. Si pretendes usar varias veces una misma configuración de variables (que no sea la predeterminada), puedes **guardarlas en un preset** y usarlo para indexar sin tener que cambiar los valores de las variables manualmente. 
 
 Cuando crees presets, aparecerán más opciones en el menú:
 
@@ -238,7 +238,7 @@ Cabe resaltar que estas configuraciones pueden usarse tanto como si se indexa po
 - Cualquier línea que empiece por 2-6 almohadillas y un espacio (## ) **será tomada como encabezado, aunque no lo sea**. Tener en cuenta si tu archivo contiene estos carácteres entre backsticks ```, como en los ejemplos de este readme.
 
 - Cuando se usa la función `Re-Indexator`, es muy importante que el formato sea preciso:
-	- **Si pasas el bruto <u>con índice</u>**, es muy importante que esté escrito entre "---", de la siguiente manera:
+	- <strong>Si pasas el bruto <u>con índice</u></strong>, es muy importante que esté escrito entre "---", de la siguiente manera:
 	```
 	---
 	## 1. Titulo de ejemplo 1
@@ -246,6 +246,6 @@ Cabe resaltar que estas configuraciones pueden usarse tanto como si se indexa po
 	### 2.1 Titulo de ejemplo 2.1
 	---
 	```
-	- **Si pasas el bruto <u>sin índice</u>**, no tienes que preocuparte por nada, pero téngase en cuenta que el programa detecta que el bruto no tiene índice **si no encuentra el encabezado** `# Índice de contenidos`.
+	- <strong>Si pasas el bruto <u>sin índice</u></strong>, no tienes que preocuparte por nada, pero téngase en cuenta que el programa detecta que el bruto no tiene índice **si no encuentra el encabezado** `# Índice de contenidos`.
 
 	- En ambos casos, el índice se borrará y se creará uno nuevo. Es de gran importancia que se cumpla el formato especificado, de lo contrario el programa podría no borrar el índice o no indexar correctamente.
