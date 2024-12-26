@@ -16,10 +16,10 @@ Es un programa hecho a mis gustos y a mi manera de organizar los apartados, por 
 ___Nota: este índice no ha sido creado con Indexator___
 
 ## Requisitos
-Python 3.10 o superior: Puedes ver tu versión de Python con `python --version` o `python3 --version`.
+Python 3.8 o superior: Puedes ver tu versión de Python con `python --version` o `python3 --version`.
 
 ## Cómo usar
-Imaginemos que tenemos una nota de obsidian con el siguiente esquema (supongamos que entre los encabezados hay texto):
+Imaginemos que tenemos una nota de Obsidian con el siguiente esquema (supongamos que entre los encabezados hay texto):
 
 ```
 ## Definición de rendimiento
@@ -71,7 +71,7 @@ Cuando crees presets, aparecerán más opciones en el menú:
 - Para cancelar cualquier operación en curso, puedes usar `Ctrl+C`. Para salir forzosamente del programa, usa `Ctrl+D`.
 
 ## Funciones
-***Antes de usar cualquiera de las siguientes funciones***, ver [Notas Importantes](#Notas%20Importantes) y [Notas sobre las configuraciones](#notas-sobre-las-configuraciones).
+***Antes de usar cualquiera de las siguientes funciones***, ver [Notas Importantes](#Notas%20Importantes) y [Notas sobre las variable](#notas-sobre-las-variables).
 
 Indexator viene con **4 funciones** para manejar los índices. Para los ejemplos de este apartado y los siguientes, suponer el esquema visto en el apartado [Cómo usar](#cómo-usar).
 - `Indexator`. Crea índices ordenados **con números** a partir de encabezados ***sin numeros*** y ***sin Índice de contenidos*** creado (como el del ejemplo). Usado la primera vez que se quiere indexar.
@@ -104,7 +104,7 @@ ___Nota: Mi Obsidian tiene temas y snippets, pero la estructura del índice ser�
 ## Variables
 
 Durante la ejecución, puedes cambiar los valores de **4 variables** para modificar la salida del programa. Todas estas variables pueden usarse en conjunto, lo que hace que el indexado sea muy flexible.  
-- `SUBDIVISION`. Su valor predeterminado es `False`. Cuando vale `True`, añade **INDEX** al frente de los números del índice.
+- `SUBDIVISION`. Su valor predeterminado es `False`. Cuando vale `True`, añade `INDEX` al frente de los números del índice.
 
 	- De esta manera, la transformación que hace el programa sería la siguiente:
 	```
@@ -116,7 +116,7 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 	###### -> INDEX.1.2.3.4.5.6
 	```
 
-	- Tomando el ejemplo, si hubiéramos utilizado Indexator con **SUBDIVISION** = `True`, la salida hubiera sido:
+	- Tomando el ejemplo, si hubiéramos utilizado Indexator con `SUBDIVISION = True`, la salida hubiera sido:
 	```
 	# Índice de contenidos
 	- [1.1 Definición de rendimiento](#1.1%20Definición%20de%20rendimiento)
@@ -129,7 +129,7 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 	---
 	```
 
-- `INDEX`. Su valor predeterminado es `1`. Solo se usa cuando **SUBDIVISION** = `True`.
+- `INDEX`. Su valor predeterminado es `1`. Solo se usa cuando `SUBDIVISION = True`.
 
 
 - `IGNORE_HEADERS`. Indica qué tamaños de encabezado se ignoran (no se ponen en el índice). Ignora los encabezados mayores o iguales a `hN`, siendo `N` el valor de `IGNORE_HEADERS`. 
@@ -145,7 +145,7 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 ---
 ```
 
-- `NO_INDEX_HEADERS`. Indica qué tamaños de encabezado **no se indexan**. No indexa los encabezados mayores o iguales a `hN`, siendo `N` el valor de `IGNORE_HEADERS`.
+- `NO_INDEX_HEADERS`. Indica qué tamaños de encabezado **no se indexan**. No indexa los encabezados mayores o iguales a `hN`, siendo `N` el valor de `NO_INDEX_HEADERS`.
 
 	- Su valor por defecto es 0, lo que equivale a indexar todos los encabezados.
 	- **Sus valores válidos van desde 2-6**. Supongamos el ejemplo anterior, imaginemos que queremos dejar los encabezados `h3` en el índice, pero no queremos indexarlos. Entonces usariamos `Indexator` con `NO_INDEX_HEADERS = 3`, lo que nos daría:
@@ -162,7 +162,7 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 ```
 
 ### Notas sobre las variables
-- La variable `SUBDIVISION` es tomada en cuenta en las funciones `Indexator` y `Re_Indexator`, pero estas no detectan si los encabezados han sido creados usando esta opción. Tómemos el siguiente ejemplo:
+- La variable `SUBDIVISION` es tomada en cuenta en las funciones `Indexator` y `Re-Indexator`, pero estas no detectan si los encabezados han sido creados usando esta opción. Tómemos el siguiente ejemplo:
 	```
 	## 2.1 Definición de rendimiento
 	## 2.2 Métricas populares
@@ -178,7 +178,7 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 	## 2.5 Programas de Prueba (Benchmarks)
 	## Ejercicios Resueltos
 	```
-	- En este caso, yo quiero indexar los nuevos apartados. Si quisiera conservar el `2.` delante de cada título al usar `Re_Indexator`, debo especificar de nuevo que `SUBDIVISION = True` e `INDEX = 2`. El índice resultante se vería así:
+	- En este caso, yo quiero indexar los nuevos apartados. Si quisiera conservar el `2.` delante de cada título al usar `Re-Indexator`, debo especificar de nuevo que `SUBDIVISION = True` e `INDEX = 2`. El índice resultante se vería así:
 
 		```
 		## 2.1 Definición de rendimiento
@@ -210,7 +210,7 @@ Para evitar tener que memorizar los valores de las variables para un tipo de ind
 
 Para crear un preset, usa la opción 12 del menú. Se te pedirá un nombre y los valores de las variables. Esto último requiere ser introducido siguiendo un patrón ordenado:
 ```
-        subdivision     index     ignore_headers     no_index_headers
+            subdivision     index     ignore_headers     no_index_headers
 ```
 
 A continuación se muestran algunos ejemplos de entradas que acepta el programa:
@@ -222,9 +222,12 @@ FaLsE 0 3 3   # Ídem pero además sin indexar los encabezados h3 y superior
 0 0 3 3       # Ídem al anterior
 ```
 ___Notas Importantes:___ 
-- `SUBDIVISION` puede tomar valores 1 o 0 en lugar de `True` o `False`, respectivamente. El programa ignora mayúsculas y minúsculas cuando se comprueba su valor. 
+- `SUBDIVISION` puede tomar valores 1 o 0 en lugar de `True` o `False`, respectivamente. El programa ignora mayúsculas y minúsculas cuando se comprueba su valor.
+
 - El valor de `INDEX` debe ser válido (mayor que 0) aunque `SUBDIVISION` sea `False`.
+
 - Puede haber espacios de más antes/después/entre las variables.
+
 - Cuando se **crea**/**elimina** un preset, el programa solo mostrará mensajes si se produce un error.
 
 Cabe resaltar que estas configuraciones pueden usarse tanto como si se indexa por primera vez como si se quiere volver a indexar, ya que se usa la función `Re-Indexator`.
