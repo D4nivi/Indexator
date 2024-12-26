@@ -50,7 +50,7 @@ python main.py
 Al ejecutar el programa **por <u>primera vez</u>** nos aparecerá un **menú** como el siguiente:
 
 <div align="center">
-    <img src="img/Menú indexator primera ejecución.png" alt="Ejemplo salida indexator">
+    <img src="img/Menú indexator primera ejecución.png" width="70%" alt="Ejemplo salida indexator">
 </div>
 
 En este menú podemos seleccionar la **función que queramos usar para indexar** (ver [_Funciones_](#Funciones)). El archivo `bruto_indexado.md` contendrá la salida del programa: **el bruto con los encabezados modificados** (con los números añadidos) y **el índice** pegado al principio de la nota.
@@ -62,7 +62,7 @@ En la **<u>Configuracion de presets</u>** tenemos solo una opción, para crear *
 Cuando crees presets, aparecerán más opciones en el menú:
 
 <div align="center">
-    <img src="img/Menú indexator tras crear 2 presets.png" alt="Ejemplo salida indexator">
+    <img src="img/Menú indexator tras crear 2 presets.png" width="70%" alt="Ejemplo salida indexator">
 </div>
 
 - Para indexar con el primer preset que hayas creado, usas la opción (10). Esta opción siempre usará el primer preset.
