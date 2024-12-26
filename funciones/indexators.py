@@ -214,31 +214,40 @@ def set_index(value: int | None = None) -> None:
     global INDEX
 
     if value is None:
-        aux = int(input("Introduce el nuevo valor para INDEX (>= 0): "))
-        if aux >= 0:
-            INDEX = aux
-    else:
-        INDEX = value
+        value = -1
+        while value < 0:
+            try:
+                value = int(input("Introduce el nuevo valor para INDEX (>= 0): "))
+            except ValueError:
+                pass
+
+    INDEX = value
 
 def set_ignore_headers(value: int | None = None) -> None:
     global IGNORE_HEADERS
 
     if value is None:
-        aux = int(input("Introduce el nuevo valor para IGNORE_HEADERS (0|[2-6]): "))
-        if aux == 0 or (2 <= aux <= 6):
-            IGNORE_HEADERS = aux
-    else:
-        IGNORE_HEADERS = value
+        value = -1
+        while not (2 <= value <= 6 or value == 0):
+            try:
+                value = int(input("Introduce el nuevo valor para IGNORE_HEADERS (0|[2-6]): "))
+            except ValueError:
+                pass
+
+    IGNORE_HEADERS = value
 
 def set_no_index_headers(value: int | None = None) -> None:
     global NO_INDEX_HEADERS
 
     if value is None:
-        aux = int(input("Introduce el nuevo valor para NO_INDEX_HEADERS (0|[2-6]): "))
-        if aux == 0 or (2 <= aux <= 6):
-            NO_INDEX_HEADERS = aux
-    else:
-        NO_INDEX_HEADERS = value
+        value = -1
+        while not (2 <= value <= 6 or value == 0):
+            try:
+                value = int(input("Introduce el nuevo valor para NO_INDEX_HEADERS (0|[2-6]): "))
+            except ValueError:
+                pass
+
+    NO_INDEX_HEADERS = value
 
 
 ##### MENÚ #####

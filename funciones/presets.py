@@ -6,6 +6,7 @@ import re
 CONTENTS = []
 PRESETS_PATH = os.path.join(os.getcwd(), "presets.json")
 MAX_PRESETS = 20
+RE_CONF = re.compile(r"(?i)(?P<subdivision>(True|False|1|0)) +(?P<index>(0|[1-9]\d*)) +(?P<ignore_headers>(0|[2-6])) +(?P<no_index_headers>(0|[2-6]))")
 
 
 ##### FUNCIONES #####
@@ -60,21 +61,21 @@ def create_preset() -> dict:
             print(f"El preset '{name}' ya existe. Por favor elige otro nombre.\n")
 
     # Obtener variables
-    print("\nSUBDIVISION: True | False\nINDEX: >0\nIGNORE_HEADERS: (0|[2-6])\nNO_INDEX_HEADERS: (0|[2-6])\n")
-    valores = input("Introduce los valores para las variables (Ejemplo: true 2 0 0): ").strip()
-    entrada = re.fullmatch(r"(?i)(True|False) +(0|[1-9]\d*) +(0|[2-6]) +(0|[2-6])", valores)
+    print("\nSUBDIVISION: True | False | 1 | 0\nINDEX: >= 0\nIGNORE_HEADERS: (0|[2-6])\nNO_INDEX_HEADERS: (0|[2-6])\n")
+    valores = input("Introduce los valores para las variables (Ejemplos: true 2 0 0 | 0 1 3 2): ").strip()
+    entrada = RE_CONF.fullmatch(valores)
 
     while not entrada:
         print("Formato de entrada inválido.\n")
         valores = input("Introduce los valores para las variables: ").strip()
-        entrada = re.fullmatch(r"(?i)(True|False) +([1-9]\d*) +(0|[2-6]) +(0|[2-6])", valores)
+        entrada = RE_CONF.fullmatch(valores)
 
     return {
         "name": name,
-        "subdivision": entrada[1].lower() == "true",
-        "index": int(entrada[2]),
-        "ignore_headers": int(entrada[3]),
-        "no_index_headers": int(entrada[4])
+        "subdivision": entrada["subdivision"].lower() == "true" or entrada["subdivision"] == "1",
+        "index": int(entrada["index"]),
+        "ignore_headers": int(entrada["ignore_headers"]),
+        "no_index_headers": int(entrada["no_index_headers"])
     }
 
 def add_preset() -> bool:
