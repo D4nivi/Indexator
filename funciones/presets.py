@@ -11,6 +11,10 @@ RE_CONF = re.compile(r"(?i)(?P<subdivision>(True|False|1|0)) +(?P<index>(0|[1-9]
 
 ##### FUNCIONES #####
 def read_json() -> bool:
+    """
+    Lee el archivo `presets.json` y guarda sus contenidos en la variable `CONTENTS`.
+    """
+    
     global CONTENTS
 
     try:
@@ -35,6 +39,12 @@ def read_json() -> bool:
     return CONTENTS is not None
 
 def list_presets() -> None:
+    """
+    Muestra los presets creados. Para cada uno, muestra:
+    - Nombre del preset.
+    - Valores de las variables (`SUBDIVISION`, `INDEX`, `IGNORE_HEADERS`, `NO_INDEX_HEADERS`).
+    """
+
     print("\n----- Lista de presets -----")
     for i in range(len(CONTENTS)):
         print(f"({i}) Nombre: {CONTENTS[i]['name']}")
@@ -44,6 +54,14 @@ def list_presets() -> None:
         print(f"\tNO_INDEX_HEADERS: {CONTENTS[i]['no_index_headers']}\n")
         
 def create_preset() -> dict:
+    """
+    Crea un preset. Para crear un preset, este debe:
+    - Tener un nombre con 1-20 caracteres.
+    - Tener un nombre que no esté usado.
+
+    Devuelve un diccionario que contiene los datos del preset.
+    """
+
     taken_names = []
     name = ""
 
@@ -79,6 +97,12 @@ def create_preset() -> dict:
     }
 
 def add_preset() -> bool:
+    """
+    Añade un preset a `presets.json` si el número actual de presets no ha excedido `MAX_PRESETS`.
+
+    Devuelve `True` si se pudo crear el preset, `False` en caso contrario.
+    """
+
     # Comprobaciones
     if not os.path.exists(PRESETS_PATH):
         print("Archivo '{PRESETS_PATH}' no encontrado.")
@@ -98,6 +122,12 @@ def add_preset() -> bool:
     return True
 
 def delete_preset() -> bool:
+    """
+    Elimina un preset dado su nombre. El nombre del preset tiene que existir y ser válido.
+
+    Devuelve `True` si se pudo eliminar el preset, `False` en caso contrario.
+    """
+    
     # Comprobaciones
     if not os.path.exists(PRESETS_PATH):
         print(f"Archivo '{PRESETS_PATH}' no encontrado.")
@@ -120,10 +150,15 @@ def delete_preset() -> bool:
     return True
 
 def get_contents() -> list:
-    '''
-    La función no debe usarse antes de leer los contenidos de `presets.json`.
-    '''
+    """
+    Devuelve una copia del contenido de `presets.json`.
+    """
     return CONTENTS
 
-def get_preset(n: int) -> str | list:
+def get_preset(n: int) -> dict | list:
+    """
+    Devuelve un diccionario con los datos del preset `n`.
+
+    Si no hay presets creados, devuelve una lista vacía.
+    """
     return CONTENTS[n] if len(CONTENTS) > 0 else []

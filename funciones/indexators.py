@@ -4,7 +4,7 @@ import fileinput
 from funciones.presets import read_json, get_contents, get_preset, MAX_PRESETS
 
 ##### RUTAS A ARCHIVOS #####
-# Path al bruto.md, donde se pega el bruto a indexar.
+# Path al bruto.md, de donde se lee el bruto a indexar.
 RAW_PATH = os.path.join(os.getcwd(), "bruto.md")
 
 # Path al archivo temporal .indice.md, donde se copiará el índice
@@ -43,7 +43,6 @@ def indexator(path = RAW_PATH) -> None:
         # Escritura
         tmpfile.write("# Índice de contenidos\n")
         for line in infile:
-            # Cadena del subíndice
             subindex = ""
 
             if line.startswith('##'):
@@ -70,7 +69,7 @@ def indexator(path = RAW_PATH) -> None:
                 # Título (lo que va después de los hashtags, +1 porque hay un espacio)
                 title = line[hashtags+1:].rstrip()
 
-                # Título formato markdown, sustituyendo espacios por %20
+                # Título en formato markdown, sustituyendo espacios por %20
                 format_title = title.replace(" ", "%20")
 
                 # Escribo líneas del índice y cada título en bruto_indexado.md añadiéndoles el número
@@ -203,6 +202,13 @@ def add_index() -> None:
 
 ##### SETTERS PARA EL MAIN #####
 def set_subdivision(value: bool | None = None) -> None:
+    """
+    Setter para variable SUBDIVISION.
+
+    - Si no se pasa un valor, este se pide por pantalla (usuario).
+    - Si se pasa un valor, lo toma directamente (dev).
+    """
+
     global SUBDIVISION
 
     if value is None:
@@ -211,6 +217,13 @@ def set_subdivision(value: bool | None = None) -> None:
         SUBDIVISION = value
 
 def set_index(value: int | None = None) -> None:
+    """
+    Setter para variable INDEX.
+
+    - Si no se pasa un valor, este se pide por pantalla (usuario).
+    - Si se pasa un valor, lo toma directamente (dev).
+    """
+
     global INDEX
 
     if value is None:
@@ -224,6 +237,13 @@ def set_index(value: int | None = None) -> None:
     INDEX = value
 
 def set_ignore_headers(value: int | None = None) -> None:
+    """
+    Setter para variable IGNORE_HEADERS.
+
+    - Si no se pasa un valor, este se pide por pantalla (usuario).
+    - Si se pasa un valor, lo toma directamente (dev).
+    """
+
     global IGNORE_HEADERS
 
     if value is None:
@@ -237,6 +257,13 @@ def set_ignore_headers(value: int | None = None) -> None:
     IGNORE_HEADERS = value
 
 def set_no_index_headers(value: int | None = None) -> None:
+    """
+    Setter para variable NO_INDEX_HEADERS.
+
+    - Si no se pasa un valor, este se pide por pantalla (usuario).
+    - Si se pasa un valor, lo toma directamente (dev).
+    """
+    
     global NO_INDEX_HEADERS
 
     if value is None:
@@ -252,14 +279,18 @@ def set_no_index_headers(value: int | None = None) -> None:
 
 ##### MENÚ #####
 def menu() -> None:
+    """
+    Muestra el menú principal de Indexator.
+    """
+    
     # Título sacado de https://patorjk.com/software/taag. Fuente: Big
-    titulo = r'''  _____               _                         _                  
+    titulo = r"""  _____               _                         _                  
  |_   _|             | |                       | |                 
    | |    _ __     __| |   ___  __  __   __ _  | |_    ___    _ __ 
    | |   | '_ \   / _` |  / _ \ \ \/ /  / _` | | __|  / _ \  | '__|
   _| |_  | | | | | (_| | |  __/  >  <  | (_| | | |_  | (_) | | |   
  |_____| |_| |_|  \__,_|  \___| /_/\_\  \__,_|  \__|  \___/  |_|   
- '''
+ """
     os.system("clear")
     print(titulo)
     print("¿Qué vamos a usar hoy?\n(1) Indexator\n(2) Quasi-Indexator\n(3) Re-Indexator\n(4) De-Indexator\n")
