@@ -276,12 +276,13 @@ def set_no_index_headers(value: int | None = None) -> None:
 
     NO_INDEX_HEADERS = value
 
+def get_all() -> list:
+    """Devuelve una lista con los valores de las variables del programa."""
+    return [SUBDIVISION, INDEX, IGNORE_HEADERS, NO_INDEX_HEADERS]
 
 ##### MENÚ #####
 def menu() -> None:
-    """
-    Muestra el menú principal de Indexator.
-    """
+    """Muestra el menú principal de Indexator."""
     
     # Título sacado de https://patorjk.com/software/taag. Fuente: Big
     titulo = r"""  _____               _                         _                  
@@ -312,7 +313,7 @@ def menu() -> None:
             print("(11) Indexar con otro preset")
         
         if len(get_contents()) < MAX_PRESETS:
-            print(f"(12) Crear un preset ({len(get_contents())} preset(s) creados, MÁX. {MAX_PRESETS})")
+            print(f"(12) Crear un preset ({len(get_contents())} preset(s) creado(s), MÁX. {MAX_PRESETS})")
         else:
             print("(12) Crear un preset (LÍMITE ALCANZADO)")
 

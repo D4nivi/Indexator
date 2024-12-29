@@ -11,9 +11,7 @@ RE_CONF = re.compile(r"(?i)(?P<subdivision>(True|False|1|0)) +(?P<index>(0|[1-9]
 
 ##### FUNCIONES #####
 def read_json() -> bool:
-    """
-    Lee el archivo `presets.json` y guarda sus contenidos en la variable `CONTENTS`.
-    """
+    """Lee el archivo `presets.json` y guarda sus contenidos en la variable `CONTENTS`."""
     
     global CONTENTS
 
@@ -150,15 +148,9 @@ def delete_preset() -> bool:
     return True
 
 def get_contents() -> list:
-    """
-    Devuelve una copia del contenido de `presets.json`.
-    """
+    """Devuelve una copia del contenido de `presets.json`."""
     return CONTENTS
 
 def get_preset(n: int) -> dict | list:
-    """
-    Devuelve un diccionario con los datos del preset `n`.
-
-    Si no hay presets creados, devuelve una lista vacía.
-    """
+    """Devuelve un diccionario con los datos del preset `n`. Si no hay presets creados, devuelve una lista vacía."""
     return CONTENTS[n] if len(CONTENTS) > 0 else []
