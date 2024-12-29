@@ -1,26 +1,39 @@
 import os
-from funciones.indexators import indexator, quasi_indexator, re_indexator, menu
+from funciones.indexators import indexator, quasi_indexator, re_indexator, menu, get_all
 from funciones.indexators import set_subdivision, set_index, set_ignore_headers, set_no_index_headers
 from funciones.presets import list_presets, add_preset, delete_preset, get_contents, get_preset
 
 ##### FUNCIONES AUXILIARES PARA EL PROGRAMA PRINCIPAL #####
 def pause(msg: str = "") -> None:
-    """
-    Función `"Pulse una tecla para continuar..."`.
-
-    Solo funciona en Linux.
-    """
+    """Función `"Pulse una tecla para continuar..."`. Solo funciona en Linux."""
     
     print(msg + "\n")
     print("Presione una tecla para continuar...", end="", flush=True)
     os.system("bash -c 'read -r -n 1 -s'")
 
+def set_all(values: list) -> None:
+    """Función para cambiar el valor de todas las variables a la vez."""
+
+    set_subdivision(values[0])
+    set_index(values[1])
+    set_ignore_headers(values[2])
+    set_no_index_headers(values[3])
+
 def preset_indexation(n_preset: int = 0) -> None:
-    set_subdivision(get_preset(n_preset)["subdivision"])
-    set_index(get_preset(n_preset)["index"])
-    set_ignore_headers(get_preset(n_preset)["ignore_headers"])
-    set_no_index_headers(get_preset(n_preset)["no_index_headers"])
+    """
+    Función para indexar según los valores de las variables de un preset.
+    
+    Si no se especifica `n_preset`, se usa el primer preset de `presets.json`.
+    """
+    
+    set_all([
+        get_preset(n_preset)["subdivision"],
+        get_preset(n_preset)["index"],
+        get_preset(n_preset)["ignore_headers"],
+        get_preset(n_preset)["no_index_headers"]]
+    )
     re_indexator()
+
 
 ##### Programa principal #####
 def main():
@@ -30,6 +43,7 @@ def main():
         try:
             menu()                      # Aquí se lee presets.json
             contents = get_contents()
+            old_values = get_all()
             opcion = input()
 
             if opcion == '0':
@@ -52,20 +66,18 @@ def main():
                 set_ignore_headers(2)
                 set_no_index_headers(2)
                 re_indexator()
+                set_all(old_values)
                 pause("¡Terminado!")
 
             elif opcion == '5': set_subdivision()
             elif opcion == '6': set_index()
             elif opcion == '7': set_ignore_headers()
             elif opcion == '8': set_no_index_headers()
-            elif opcion == '9':
-                set_subdivision(False)
-                set_index(1)
-                set_ignore_headers(0)
-                set_no_index_headers(0)
+            elif opcion == '9': set_all([False, 1, 0, 0])
 
             elif opcion == '10' and len(contents) > 0:
                 preset_indexation()
+                set_all(old_values)
                 pause("¡Terminado!")
 
             elif opcion == '11' and len(contents) > 1:
@@ -80,6 +92,7 @@ def main():
 
                 if n_preset != 0:
                     preset_indexation(n_preset)
+                    set_all(old_values)
                     pause("¡Terminado!")
 
             elif opcion == '12':
