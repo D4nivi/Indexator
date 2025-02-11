@@ -7,12 +7,13 @@ from funciones.presets import list_presets, add_preset, delete_preset, get_conte
 def pause(msg: str = "") -> None:
     """Función `"Pulse una tecla para continuar..."`."""
 
+    print(msg + "\n")
+
     if os.name == "nt":
         os.system("pause")
     else:
-        print(msg + "\n")
         print("Presione una tecla para continuar...", end="", flush=True)
-        os.system("bash -c 'read -r -n 1 -s'")
+        os.system("read -r -n 1 -s")
 
 def set_all(values: list) -> None:
     """Función para cambiar el valor de todas las variables a la vez."""
