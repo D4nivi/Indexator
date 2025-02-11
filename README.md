@@ -6,11 +6,12 @@ Es un programa hecho a mis gustos y a mi manera de organizar los apartados, por 
 
 ## Índice de contenidos
 - [Requisitos](#Requisitos)
+- [¿Cómo funciona Indexator?](#cómo-funciona-indexator)
 - [Cómo usar](#cómo-usar)
 - [Funciones](#Funciones)
 - [Variables](#Variables)
 	- [Notas sobre las variables](#notas-sobre-las-variables)
-- [Configuraciones de variables (presets)](#configuraciones-de-variables-presets)
+- [Presets](#Presets)
 - [Notas Importantes](#notas-importantes)
 
 ___Nota: este índice no ha sido creado con Indexator___
@@ -18,7 +19,7 @@ ___Nota: este índice no ha sido creado con Indexator___
 ## Requisitos
 Python 3.8 o superior: Puedes ver tu versión de Python con `python --version` o `python3 --version`.
 
-## Cómo usar
+## ¿Cómo funciona Indexator?
 Imaginemos que tenemos una nota de Obsidian con el siguiente esquema (supongamos que entre los encabezados hay texto):
 
 ```
@@ -41,9 +42,54 @@ Un índice se creará a partir de los encabezados Markdown (las almohadillas #).
 ```
 - ___Nota: los números son orientativos, en un caso real como este todos los números serían unos.___
 
-**Para crear un índice de nuestra nota**, copiamos directamente todo el texto anterior de la nota al archivo `bruto.md`. No es necesario copiar solamente los encabezados, podemos copiar el texto completo (incluidas etiquetas) en el caso de que hubiera. El programa simplemente lo ignorará.
+Si le pasamos al programa el contenido anterior, podría indexarlo de esta manera:
+```
+## 1. Definición de rendimiento
+## 2. Métricas populares
+### 2.1 Tiempo de ejecución
+### 2.2 Otras métricas de rendimiento
+## 3. Ley de Amdahl
+## 4. Cómo comparar resultados
+## 5. Programas de Prueba (Benchmarks)
+```
 
-Una vez hecho esto, abrimos una terminal en la carpeta del proyecto y ejecutamos el programa:
+**El índice solo se creará cuando se detecten "---"**. Esto se hace así para evitar que el índice se escriba siempre al principio de la nota, y puedas controlar dónde ponerlo. Es decir, el ejemplo anterior no creará un índice, a no ser que pongamos "---" antes del primer encabezado:
+```
+---
+## Definición de rendimiento
+## Métricas populares
+### Tiempo de ejecución
+### Otras métricas de rendimiento
+## Ley de Amdahl
+## Cómo comparar resultados
+## Programas de Prueba (Benchmarks)
+```
+
+Si le pasamos al programa el contenido anterior, podría indexarlo de esta manera:
+```
+---
+# Índice de contenidos
+- [1. Definición de rendimiento](#1.%20Definición%20de%20rendimiento)
+- [2. Métricas populares](#2.%20Métricas%20populares)
+	- [2.1 Tiempo de ejecución](#2.1%20Tiempo%20de%20ejecución)
+	- [2.2 Otras métricas de rendimiento](#2.2%20Otras%20métricas%20de%20rendimiento)
+- [3. Ley de Amdahl](#3.%20Ley%20de%20Amdahl)
+- [4. Cómo comparar resultados](#4.%20Cómo%20comparar%20resultados)
+- [5. Programas de Prueba (Benchmarks)](#5.%20Programas%20de%20Prueba%20(Benchmarks))
+---
+## 1. Definición de rendimiento
+## 2. Métricas populares
+### 2.1 Tiempo de ejecución
+### 2.2 Otras métricas de rendimiento
+## 3. Ley de Amdahl
+## 4. Cómo comparar resultados
+## 5. Programas de Prueba (Benchmarks)
+```
+
+Nótese que el índice queda encerrado entre "---". Esto es crucial para detectarlo y poder usar funciones como `Re-Indexator` o `De-Indexator`. En el apartado _[Funciones](#funciones)_, puedes ver un ejemplo de cómo se vería este índice en Obsidian.
+
+## Cómo usar
+Para indexar una nota de Obsidian, primero debemos copiar el contenido de la nota al archivo `bruto.md` de la carpeta del proyecto. No es necesario copiar solamente los encabezados, podemos copiar el texto completo (incluidas etiquetas e índice, en el caso de que hubiera). Abrimos una terminal en dicha carpeta y ejecutamos el programa:
 ```python
 python main.py
 ```
@@ -57,7 +103,7 @@ En este menú podemos seleccionar la **función que queramos usar para indexar**
 
 En la <u><strong>Configuracion de variables</strong></u> podemos **cambiar los valores de algunas variables** para modificar el formato del indexado y el índice. Estas variables se explican en el apartado [_Variables_](#variables).
 
-En la <u><strong>Configuracion de presets</strong></u> tenemos solo una opción, para crear **presets**. Si pretendes usar varias veces una misma configuración de variables (que no sea la predeterminada), puedes **guardarlas en un preset** y usarlo para indexar sin tener que cambiar los valores de las variables manualmente. 
+En la <u><strong>Configuracion de presets</strong></u> tenemos solo una opción, para crear **presets**. Si pretendes usar varias veces una misma configuración de variables (que no sea la predeterminada), puedes **guardarlas en un preset** y usarlo para indexar sin tener que cambiar los valores de las variables manualmente (ver _[Presets](#Presets)_). 
 
 Cuando crees presets, aparecerán más opciones en el menú:
 
@@ -68,12 +114,12 @@ Cuando crees presets, aparecerán más opciones en el menú:
 - Para indexar con el primer preset que hayas creado, usas la opción (10). Esta opción siempre usará el primer preset.
 - Si creas más presets, puedes usarlos con la opción (11).
 - La opción (14) muestra los nombres y valores de las variables para todos los presets.
-- Para cancelar cualquier operación en curso, puedes usar `Ctrl+C`. Para salir forzosamente del programa, usa `Ctrl+D`.
+- Para cancelar cualquier operación en curso, puedes usar `Ctrl+C`. Para salir forzosamente del programa, usa `Ctrl+D` (solo disponible en Linux).
 
 ## Funciones
 ***Antes de usar cualquiera de las siguientes funciones***, ver [Notas Importantes](#Notas%20Importantes) y [Notas sobre las variables](#notas-sobre-las-variables).
 
-Indexator viene con **4 funciones** para manejar los índices. Para los ejemplos de este apartado y los siguientes, suponer el esquema visto en el apartado [Cómo usar](#cómo-usar).
+Indexator viene con **4 funciones** para indexar las notas de Obsidian. Para los ejemplos de este apartado y los siguientes, usaremos el esquema visto en el apartado [Cómo usar](#cómo-usar).
 - `Indexator`. Crea índices ordenados **con números** a partir de encabezados ***sin numeros*** y ***sin Índice de contenidos*** creado (como el del ejemplo). Usado la primera vez que se quiere indexar.
 
 _Ejemplo de índice creado con la función `Indexator`_
@@ -99,6 +145,7 @@ ___Nota: Mi Obsidian tiene temas y snippets, pero la estructura del índice ser�
 - `Quasi-Indexator`. Crea índices ordenados a partir de encabezados ***con o sin numeros***. Lo único que hace es crear un **Índice de contenidos** a partir de los encabezados que tengas, sin añadir nada. De esta manera, puede usarse si habías puesto numeros de antemano.
 
 - `Re-Indexator`. **Actualiza el índice**. Funciona como una _versión mejorada_ de `Indexator`. El punto de esta función es **crear un índice de nuevo** cuando ya se ha creado uno con el programa (o no), bien porque has añadido o eliminado contenido a tu nota (al principio o final).
+	- Está función es muy flexible, y podría reemplazar a todas las funciones del programa. **Si dudas sobre qué función usar**, usa `Re-Indexator`.
 
 - `De-Indexator`. Borra el **Índice de Contenidos** y los índices de los títulos.
 ## Variables
@@ -199,13 +246,13 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 
 ‎ 
 - Si quisiéramos indexar sin poner el **Índice de contenidos**, usaríamos cualquiera de las funciones con `IGNORE_HEADERS = 2`.
-- Si no quisiéramos indexar, pero sí dejar el **Índice de contenidos**, usaríamos `NO_INDEX_HEADERS = 2`.
+- Si no quisiéramos indexar los encabezados, pero sí dejar el **Índice de contenidos**, usaríamos `NO_INDEX_HEADERS = 2`.
 
 - Usar las dos opciones anteriores con `Re-Indexator` equivale a usar `De-Indexator`.
 
 - Usar `Re-Indexator` con `NO_INDEX_HEADERS = 2` equivale a usar `Quasi-Indexator`.
 
-## Configuraciones de variables (presets)
+## Presets
 Para evitar tener que memorizar los valores de las variables para un tipo de indexado que hagas recurrentemente, el programa te permite crear **presets**: configuraciones de variables que puedes usar para indexar. Estas configuraciones se guardan en el archivo `presets.json`.
 
 Para crear un preset, usa la opción 12 del menú. Se te pedirá un nombre y los valores de las variables. Esto último requiere ser introducido siguiendo un patrón ordenado:
@@ -237,7 +284,7 @@ Cabe resaltar que estas configuraciones pueden usarse tanto como si se indexa po
 
 - Cualquier línea que empiece por 2-6 almohadillas y un espacio (## ) **será tomada como encabezado, aunque no lo sea**. Tener en cuenta si tu archivo contiene estos carácteres entre backsticks ```, como en los ejemplos de este readme.
 
-- Cuando se usa la función `Re-Indexator`, es muy importante que el formato sea preciso:
+- Cuando se usa la función `Re-Indexator` o `De-Indexator`, es muy importante que el formato sea preciso:
 	- <strong>Si pasas el bruto <u>con índice</u></strong>, es muy importante que esté escrito entre "---", de la siguiente manera:
 	```
 	---
