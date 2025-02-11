@@ -163,7 +163,7 @@ def del_index() -> None:
     
     # Si hay indice, lo borramos
     if contenido.find("# Índice de contenidos") != -1:
-        for line in fileinput.input(RAW_PATH, inplace=True):
+        for line in fileinput.input(RAW_PATH, inplace=True, encoding="utf-8"):
 
             # Cuando encontremos la primera ---, estaremos al principio del índice
             if line.startswith("---\n"):
@@ -180,7 +180,7 @@ def add_index() -> None:
     indice = ""
 
     # Guardamos el índice
-    with open(INDEX_PATH, "r") as tmp:
+    with open(INDEX_PATH, "r", encoding="utf-8") as tmp:
         # Ignoramos los encabezados hN si es necesario
         if IGNORE_HEADERS > 0:
             for line in tmp:
@@ -189,7 +189,7 @@ def add_index() -> None:
         else:
             indice = tmp.read()
 
-    for line in fileinput.input(RAWINDEX_PATH, inplace=True):
+    for line in fileinput.input(RAWINDEX_PATH, inplace=True, encoding="utf-8"):
         # Cuando encontremos las ---, las imprimimos y copiamos el índice
         if not indice_copiado and line.startswith("---\n"):
             print(line, end='')
