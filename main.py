@@ -5,11 +5,14 @@ from funciones.presets import list_presets, add_preset, delete_preset, get_conte
 
 ##### FUNCIONES AUXILIARES PARA EL PROGRAMA PRINCIPAL #####
 def pause(msg: str = "") -> None:
-    """Función `"Pulse una tecla para continuar..."`. Solo funciona en Linux."""
-    
-    print(msg + "\n")
-    print("Presione una tecla para continuar...", end="", flush=True)
-    os.system("bash -c 'read -r -n 1 -s'")
+    """Función `"Pulse una tecla para continuar..."`."""
+
+    if os.name == "nt":
+        os.system("pause")
+    else:
+        print(msg + "\n")
+        print("Presione una tecla para continuar...", end="", flush=True)
+        os.system("bash -c 'read -r -n 1 -s'")
 
 def set_all(values: list) -> None:
     """Función para cambiar el valor de todas las variables a la vez."""
