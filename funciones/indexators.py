@@ -40,12 +40,18 @@ def indexator(path = RAW_PATH) -> None:
         # Un índice (de los que hago yo) siempre empezará con un titulo con 2 hashtags
         hashtags_ant = 2
 
+        # Variable para detectar si el texto está entre backsticks (```)
+        inside_backsticks = False
+
         # Escritura
         tmpfile.write("# Índice de contenidos\n")
         for line in infile:
             subindex = ""
 
-            if line.startswith('##'):
+            if line.startswith("```") and not line.count("`") % 2 == 0:
+                inside_backsticks = not inside_backsticks
+
+            if line.startswith('##') and not inside_backsticks:
                 # Cuento el número de hashtags (no debería de haber en el título)
                 hashtags = line.count('#')
 

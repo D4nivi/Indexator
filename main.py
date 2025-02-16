@@ -1,5 +1,6 @@
 import os
-from funciones.indexators import indexator, quasi_indexator, re_indexator, menu, get_all
+from urllib.parse import quote
+from funciones.indexators import indexator, quasi_indexator, re_indexator, menu, get_all, RAWINDEX_PATH
 from funciones.indexators import set_subdivision, set_index, set_ignore_headers, set_no_index_headers
 from funciones.presets import list_presets, add_preset, delete_preset, get_contents, get_preset
 
@@ -38,9 +39,9 @@ def preset_indexation(n_preset: int = 0) -> None:
     )
     re_indexator()
 
-
 ##### Programa principal #####
 def main():
+    success_msg = f"\033[32mIndexación completada con éxito.\033[0m Copia el contenido de \033]8;;file://{quote(RAWINDEX_PATH)}\a\033[1;4;35mbruto_indexado.md\033[0m\033]8;;\a."
     opcion = ''
 
     while opcion != '0':
@@ -56,22 +57,22 @@ def main():
 
             elif opcion == '1':
                 indexator()
-                pause("¡Terminado!")
+                pause(success_msg)
 
             elif opcion == '2':
                 quasi_indexator()
-                pause("¡Terminado!")
+                pause(success_msg)
 
             elif opcion == '3':
                 re_indexator()
-                pause("¡Terminado!")
+                pause(success_msg)
 
             elif opcion == '4':
                 set_ignore_headers(2)
                 set_no_index_headers(2)
                 re_indexator()
                 set_all(old_values)
-                pause("¡Terminado!")
+                pause(success_msg)
 
             elif opcion == '5': set_subdivision()
             elif opcion == '6': set_index()
@@ -82,7 +83,7 @@ def main():
             elif opcion == '10' and len(contents) > 0:
                 preset_indexation()
                 set_all(old_values)
-                pause("¡Terminado!")
+                pause(success_msg)
 
             elif opcion == '11' and len(contents) > 1:
                 list_presets()
@@ -94,18 +95,17 @@ def main():
                     except ValueError:
                         pass
 
-                if n_preset != 0:
-                    preset_indexation(n_preset)
-                    set_all(old_values)
-                    pause("¡Terminado!")
+                preset_indexation(n_preset)
+                set_all(old_values)
+                pause(success_msg)
 
             elif opcion == '12':
                 if not add_preset():
-                    pause("No se ha podido crear el preset.")
+                    pause("\033[31mNo se ha podido crear el preset.\033[0m")
 
             elif opcion == '13' and len(contents) > 0:
                 if not delete_preset():
-                    pause("No se ha podido eliminar el preset")
+                    pause("\033[31mNo se ha podido eliminar el preset.\033[0m")
 
             elif opcion == '14' and len(contents) > 0:
                 list_presets()

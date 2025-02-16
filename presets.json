@@ -1,0 +1,16 @@
+[
+    {
+        "name": "dasd",
+        "subdivision": true,
+        "index": 2,
+        "ignore_headers": 0,
+        "no_index_headers": 0
+    },
+    {
+        "name": "ddddd",
+        "subdivision": false,
+        "index": 1,
+        "ignore_headers": 3,
+        "no_index_headers": 2
+    }
+]

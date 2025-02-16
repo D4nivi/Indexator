@@ -43,9 +43,9 @@ def list_presets() -> None:
     - Valores de las variables (`SUBDIVISION`, `INDEX`, `IGNORE_HEADERS`, `NO_INDEX_HEADERS`).
     """
 
-    print("\n----- Lista de presets -----")
+    print("\033[36m\n----- Lista de presets -----\033[0m")
     for i in range(len(CONTENTS)):
-        print(f"({i}) Nombre: {CONTENTS[i]['name']}")
+        print(f"({i}) Nombre: \033[34m{CONTENTS[i]['name']}\033[0m")
         print(f"\tSUBDIVISION: {CONTENTS[i]['subdivision']}")
         print(f"\tINDEX: {CONTENTS[i]['index']}")
         print(f"\tIGNORE_HEADERS: {CONTENTS[i]['ignore_headers']}")
@@ -71,10 +71,10 @@ def create_preset() -> dict:
         name = input("Introduce el nombre del preset (1-20 caracteres): ").strip()
 
         if len(name) > 20:
-            print("Tamaño de nombre excedido.\n")
+            print("\033[33mTamaño de nombre excedido.\n\033[0m")
 
         if name in taken_names:
-            print(f"El preset '{name}' ya existe. Por favor elige otro nombre.\n")
+            print(f"\033[33mEl preset '{name}' ya existe. Por favor elige otro nombre.\n\033[0m")
 
     # Obtener variables
     print("\nSUBDIVISION: True | False | 1 | 0\nINDEX: >= 0\nIGNORE_HEADERS: (0|[2-6])\nNO_INDEX_HEADERS: (0|[2-6])\n")
@@ -82,7 +82,7 @@ def create_preset() -> dict:
     entrada = RE_CONF.fullmatch(valores)
 
     while not entrada:
-        print("Formato de entrada inválido.\n")
+        print("\033[33mFormato de entrada inválido.\n\033[0m")
         valores = input("Introduce los valores para las variables: ").strip()
         entrada = RE_CONF.fullmatch(valores)
 
@@ -98,16 +98,16 @@ def add_preset() -> bool:
     """
     Añade un preset a `presets.json` si el número actual de presets no ha excedido `MAX_PRESETS`.
 
-    Devuelve `True` si se pudo crear el preset, `False` en caso contrario.
+    Devuelve `True` si se pudo crear el preset.
     """
 
     # Comprobaciones
     if not os.path.exists(PRESETS_PATH):
-        print("Archivo '{PRESETS_PATH}' no encontrado.")
+        print("\033[31mArchivo '{PRESETS_PATH}' no encontrado.\033[0m")
         return False
         
     if len(CONTENTS) >= MAX_PRESETS:
-        print("Máximo de presets alcanzado.")
+        print("\033[31mMáximo de presets alcanzado.\033[0m")
         return False
 
     # Creación y añadido
@@ -123,12 +123,12 @@ def delete_preset() -> bool:
     """
     Elimina un preset dado su nombre. El nombre del preset tiene que existir y ser válido.
 
-    Devuelve `True` si se pudo eliminar el preset, `False` en caso contrario.
+    Devuelve `True` si se pudo eliminar el preset.
     """
     
     # Comprobaciones
     if not os.path.exists(PRESETS_PATH):
-        print(f"Archivo '{PRESETS_PATH}' no encontrado.")
+        print(f"\033[31mArchivo '{PRESETS_PATH}' no encontrado.\033[0m")
         return False
 
     # Eliminado
@@ -139,7 +139,7 @@ def delete_preset() -> bool:
     nuevos_presets = [preset for preset in CONTENTS if preset["name"] != name]
 
     if len(nuevos_presets) == len(CONTENTS):
-        print(f"No existe el preset '{name}'.")
+        print(f"\033[31mNo existe el preset '{name}'.\033[0m")
         return False
 
     with open(PRESETS_PATH, "w") as jfile:
@@ -151,6 +151,6 @@ def get_contents() -> list:
     """Devuelve una copia del contenido de `presets.json`."""
     return CONTENTS
 
-def get_preset(n: int) -> dict | list:
-    """Devuelve un diccionario con los datos del preset `n`. Si no hay presets creados, devuelve una lista vacía."""
-    return CONTENTS[n] if len(CONTENTS) > 0 else []
+def get_preset(n: int) -> dict:
+    """Devuelve un diccionario con los datos del preset `n`. Si no hay presets creados, devuelve un diccionario vacío."""
+    return CONTENTS[n] if len(CONTENTS) > 0 else {}
