@@ -167,8 +167,8 @@ def del_index() -> None:
     with open(RAW_PATH, "r", encoding="utf-8") as tmp:
         contenido = tmp.read()
     
-    # Si hay indice, lo borramos
-    if contenido.find("# Índice de contenidos") != -1:
+    # Si hay índice, lo borramos. Se busca en los primeros 100 caracteres por si se encuentra la cadena en el documento.
+    if contenido.find("# Índice de contenidos", 0, 100) != -1:
         for line in fileinput.input(RAW_PATH, inplace=True, encoding="utf-8"):
 
             # Cuando encontremos la primera ---, estaremos al principio del índice

@@ -1,5 +1,4 @@
 import os
-from urllib.parse import quote
 from funciones.indexators import indexator, quasi_indexator, re_indexator, menu, get_all, RAWINDEX_PATH
 from funciones.indexators import set_subdivision, set_index, set_ignore_headers, set_no_index_headers
 from funciones.presets import list_presets, add_preset, delete_preset, get_contents, get_preset
@@ -41,7 +40,7 @@ def preset_indexation(n_preset: int = 0) -> None:
 
 ##### Programa principal #####
 def main():
-    success_msg = f"\033[32mIndexación completada con éxito.\033[0m Copia el contenido de \033]8;;file://{quote(RAWINDEX_PATH)}\a\033[1;4;35mbruto_indexado.md\033[0m\033]8;;\a."
+    success_msg = f"\033[32mIndexación completada con éxito.\033[0m Copia el contenido de \033]8;;file://{RAWINDEX_PATH.replace(" ", "%20")}\a\033[1;4;35mbruto_indexado.md\033[0m\033]8;;\a."
     opcion = ''
 
     while opcion != '0':
@@ -116,7 +115,7 @@ def main():
         except KeyboardInterrupt:
             pass
         except EOFError:
-            print("\n\nAbortando...")
+            print("\n\n\033[1;31mAbortando...\033[0m")
             exit(1)
 
 

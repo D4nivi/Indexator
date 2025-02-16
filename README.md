@@ -14,8 +14,6 @@ Es un programa hecho a mis gustos y a mi manera de organizar los apartados, por 
 - [Presets](#Presets)
 - [Notas Importantes](#notas-importantes)
 
-___Nota: este índice no ha sido creado con Indexator___
-
 ## Requisitos
 Python 3.8 o superior: Puedes ver tu versión de Python con `python --version` o `python3 --version`.
 
@@ -282,7 +280,7 @@ Cabe resaltar que estas configuraciones pueden usarse tanto como si se indexa po
 ## Notas Importantes
 - El programa **no detecta encabezados** `h1` (una sola almohadilla). Está hecho a propósito, los encabezados `h1` se ven demasiado grandes para las notas de Obsidian y personalmente no me gusta como quedan.
 
-- Cualquier línea que empiece por 2-6 almohadillas y un espacio (## ) **será tomada como encabezado, aunque no lo sea**. Tener en cuenta si tu archivo contiene estos carácteres entre backsticks ```, como en los ejemplos de este readme.
+- El programa no detecta encabezados escritos en bloques de código (todo lo que esté entre backsticks, ```), como pueden ser los ejemplos de este readme.
 
 - Cuando se usa la función `Re-Indexator` o `De-Indexator`, es muy importante que el formato sea preciso:
 	- <strong>Si pasas el bruto <u>con índice</u></strong>, es muy importante que esté escrito entre "---", de la siguiente manera:
@@ -293,6 +291,6 @@ Cabe resaltar que estas configuraciones pueden usarse tanto como si se indexa po
 	### 2.1 Titulo de ejemplo 2.1
 	---
 	```
-	- <strong>Si pasas el bruto <u>sin índice</u></strong>, no tienes que preocuparte por nada, pero téngase en cuenta que el programa detecta que el bruto no tiene índice **si no encuentra el encabezado** `# Índice de contenidos`.
+	- <strong>Si pasas el bruto <u>sin índice</u></strong>, no tienes que preocuparte por nada, pero téngase en cuenta que el programa detecta que el bruto no tiene índice **si no encuentra el encabezado** `# Índice de contenidos` al principio del documento.
 
 	- En ambos casos, el índice se borrará y se creará uno nuevo. Es de gran importancia que se cumpla el formato especificado, de lo contrario el programa podría no borrar el índice o no indexar correctamente.
