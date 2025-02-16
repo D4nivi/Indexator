@@ -1,6 +1,6 @@
 # Indexator
 
-Indexator es un programa simple de Python que crea **índices Markdown**. Está pensado para ser usado en ***Obsidian***.
+Indexator es un programa simple de Python que crea **índices Markdown**. Está pensado para ser usado en ***Obsidian***, y funciona tanto en Windows como en Linux.
 
 Es un programa hecho a mis gustos y a mi manera de organizar los apartados, por lo que la estructura puede no ser como te gustaría (en cuyo caso, siéntete libre de modificar el programa a tu gusto).
 
