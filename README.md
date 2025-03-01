@@ -29,14 +29,13 @@ Imaginemos que tenemos una nota de Obsidian con el siguiente esquema (supongamos
 ## Cómo comparar resultados
 ## Programas de Prueba (Benchmarks)
 ```
-Un índice se creará a partir de los encabezados Markdown (las almohadillas #). Dependiendo del número de almohadillas, el programa detecta y crea un subíndice. La transformación que hace el programa es la siguiente:
+Un índice se creará a partir de los encabezados Markdown. Dependiendo del número de almohadillas (#), el programa detecta y crea un subíndice. La transformación que hace el programa es la siguiente:
 ```
 ## -> 1.
-### -> 1.1
-#### -> 1.1.2
-#### -> 1.1.2.3
-##### -> 1.1.2.3.4
-###### -> 1.1.2.3.4.5
+### -> 1.2
+#### -> 1.2.3
+##### -> 1.2.3.4
+###### -> 1.2.3.4.5
 ```
 - ___Nota: los números son orientativos, en un caso real como este todos los números serían unos.___
 
@@ -51,7 +50,7 @@ Si le pasamos al programa el contenido anterior, podría indexarlo de esta maner
 ## 5. Programas de Prueba (Benchmarks)
 ```
 
-**El índice solo se creará cuando se detecten "---"**. Esto se hace así para evitar que el índice se escriba siempre al principio de la nota, y puedas controlar dónde ponerlo. Es decir, el ejemplo anterior no creará un índice, a no ser que pongamos "---" antes del primer encabezado:
+**El índice solo se creará cuando se detecten "---"**. Es decir, el ejemplo anterior no creará un índice a no ser que pongamos "---" antes del primer encabezado. Con este se evita que el índice se escriba siempre al principio de la nota, y puedas controlar dónde ponerlo.
 ```
 ---
 ## Definición de rendimiento
@@ -87,7 +86,7 @@ Si le pasamos al programa el contenido anterior, podría indexarlo de esta maner
 Nótese que el índice queda encerrado entre "---". Esto es crucial para detectarlo y poder usar funciones como `Re-Indexator` o `De-Indexator`. En el apartado _[Funciones](#funciones)_, puedes ver un ejemplo de cómo se vería este índice en Obsidian.
 
 ## Cómo usar
-Para indexar una nota de Obsidian, primero debemos copiar el contenido de la nota al archivo `bruto.md` de la carpeta del proyecto. No es necesario copiar solamente los encabezados, podemos copiar el texto completo (incluidas etiquetas e índice, en el caso de que hubiera). Abrimos una terminal en dicha carpeta y ejecutamos el programa:
+Para indexar una nota de Obsidian, primero debemos copiar el contenido de la nota al archivo `bruto.md` de la carpeta del proyecto. Podemos copiar el texto completo (incluidas etiquetas, encabezados e índice, en el caso de que hubiera). Abrimos una terminal en dicha carpeta y ejecutamos el programa:
 ```python
 python main.py
 ```
@@ -97,11 +96,11 @@ Al ejecutar el programa <strong>por <u>primera vez</u></strong> nos aparecerá u
     <img src="img/Menú indexator primera ejecución.png" width="70%" alt="Ejemplo salida indexator">
 </div>
 
-En este menú podemos seleccionar la **función que queramos usar para indexar** (ver [_Funciones_](#Funciones)). El archivo `bruto_indexado.md` contendrá la salida del programa: **el bruto con los encabezados modificados** (con los números añadidos) y **el índice** pegado al principio de la nota.
+En este menú podemos seleccionar la **función que queramos usar para indexar** (ver [_Funciones_](#Funciones)). El archivo `bruto_indexado.md` contendrá la salida del programa: **el bruto con los encabezados modificados** (con los números añadidos) y **el índice**.
 
-En la <u><strong>Configuracion de variables</strong></u> podemos **cambiar los valores de algunas variables** para modificar el formato del indexado y el índice. Estas variables se explican en el apartado [_Variables_](#variables).
+En la <u><strong>Configuración de variables</strong></u> podemos **cambiar los valores de algunas variables** para modificar el formato del indexado y el índice. Estas variables se explican en el apartado [_Variables_](#variables).
 
-En la <u><strong>Configuracion de presets</strong></u> tenemos solo una opción, para crear **presets**. Si pretendes usar varias veces una misma configuración de variables (que no sea la predeterminada), puedes **guardarlas en un preset** y usarlo para indexar sin tener que cambiar los valores de las variables manualmente (ver _[Presets](#Presets)_). 
+En la <u><strong>Configuración de presets</strong></u> tenemos solo una opción, para crear **presets**. Si pretendes usar varias veces una misma configuración de variables (que no sea la predeterminada), puedes **guardarlas en un preset** y usarlo para indexar sin tener que cambiar los valores de las variables manualmente (ver _[Presets](#Presets)_). 
 
 Cuando crees presets, aparecerán más opciones en el menú:
 
@@ -156,9 +155,8 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 	## -> INDEX.1
 	### -> INDEX.1.2
 	#### -> INDEX.1.2.3
-	#### -> INDEX.1.2.3.4
-	##### -> INDEX.1.2.3.4.5
-	###### -> INDEX.1.2.3.4.5.6
+	##### -> INDEX.1.2.3.4
+	###### -> INDEX.1.2.3.4.5
 	```
 
 	- Tomando el ejemplo, si hubiéramos utilizado Indexator con `SUBDIVISION = True`, la salida hubiera sido:
@@ -242,7 +240,8 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 		```
 	- Nótese que podríamos haber cambiado el `2.` por cualquier otro número modificando el valor de `INDEX` o, en su defecto, haberlo quitado, especificando que `SUBDIVISION = False`.
 
-‎ 
+##
+
 - Si quisiéramos indexar sin poner el **Índice de contenidos**, usaríamos cualquiera de las funciones con `IGNORE_HEADERS = 2`.
 - Si no quisiéramos indexar los encabezados, pero sí dejar el **Índice de contenidos**, usaríamos `NO_INDEX_HEADERS = 2`.
 
