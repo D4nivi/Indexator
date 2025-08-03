@@ -8,10 +8,10 @@ Es un programa hecho a mis gustos y a mi manera de organizar los apartados, por 
 - [Requisitos](#Requisitos)
 - [¿Cómo funciona Indexator?](#cómo-funciona-indexator)
 - [Cómo usar](#cómo-usar)
-- [Funciones](#Funciones)
-- [Variables](#Variables)
-	- [Notas sobre las variables](#notas-sobre-las-variables)
-- [Presets](#Presets)
+	- [Funciones](#Funciones)
+	- [Variables](#Variables)
+		- [Notas sobre las variables](#notas-sobre-las-variables)
+	- [Presets](#Presets)
 - [Notas Importantes](#notas-importantes)
 
 ## Requisitos
@@ -115,7 +115,7 @@ Cuando crees presets, aparecerán más opciones en el menú:
 - La opción (14) muestra los nombres y valores de las variables para todos los presets.
 - Para cancelar cualquier operación en curso, puedes usar `Ctrl+C`. Para salir forzosamente del programa, usa `Ctrl+D` (solo disponible en Linux).
 
-## Funciones
+### Funciones
 ***Antes de usar cualquiera de las siguientes funciones***, ver [Notas Importantes](#Notas%20Importantes) y [Notas sobre las variables](#notas-sobre-las-variables).
 
 Indexator viene con **4 funciones** para indexar las notas de Obsidian. Para los ejemplos de este apartado y los siguientes, usaremos el esquema visto en el apartado [Cómo usar](#cómo-usar).
@@ -147,7 +147,7 @@ ___Nota: Mi Obsidian tiene temas y snippets, pero la estructura del índice ser�
 	- Está función es muy flexible, y podría reemplazar a todas las funciones del programa. **Si dudas sobre qué función usar**, usa `Re-Indexator`.
 
 - `De-Indexator`. Borra el **Índice de Contenidos** y los índices de los títulos.
-## Variables
+### Variables
 
 Durante la ejecución, puedes cambiar los valores de **4 variables** para modificar la salida del programa. Todas estas variables pueden usarse en conjunto, lo que hace que el indexado sea muy flexible.  
 - `SUBDIVISION`. Su valor predeterminado es `False`. Cuando vale `True`, añade `INDEX` al frente de los números del índice.
@@ -206,7 +206,7 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 ---
 ```
 
-### Notas sobre las variables
+#### Notas sobre las variables
 - La variable `SUBDIVISION` es tomada en cuenta en las funciones `Indexator` y `Re-Indexator`, pero estas no detectan si los encabezados han sido creados usando esta opción. Tómemos el siguiente ejemplo:
 	```
 	## 2.1 Definición de rendimiento
@@ -251,7 +251,7 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 
 - Usar `Re-Indexator` con `NO_INDEX_HEADERS = 2` equivale a usar `Quasi-Indexator`.
 
-## Presets
+### Presets
 Para evitar tener que memorizar los valores de las variables para un tipo de indexado que hagas recurrentemente, el programa te permite crear **presets**: configuraciones de variables que puedes usar para indexar. Estas configuraciones se guardan en el archivo `presets.json`.
 
 Para crear un preset, usa la opción 12 del menú. Se te pedirá un nombre y los valores de las variables. Esto último requiere ser introducido siguiendo un patrón ordenado:
