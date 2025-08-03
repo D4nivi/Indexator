@@ -325,6 +325,10 @@ def menu() -> None:
 
         if len(get_contents()) > 0:
             print("(13) Eliminar un preset\n(14) Listar presets")
+    
+    print("\nAbrir archivos")
+    print("(A) Abrir bruto.md")
+    print("(B) Abrir bruto_indexado.md")
 
     print("\n(0) Salir\n")
     print("Opcion: ", end="")

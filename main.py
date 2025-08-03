@@ -1,5 +1,5 @@
 import os
-from funciones.indexators import indexator, quasi_indexator, re_indexator, menu, get_all, RAWINDEX_PATH
+from funciones.indexators import indexator, quasi_indexator, re_indexator, menu, get_all, RAW_PATH, RAWINDEX_PATH
 from funciones.indexators import set_subdivision, set_index, set_ignore_headers, set_no_index_headers
 from funciones.presets import list_presets, add_preset, delete_preset, get_contents, get_preset
 
@@ -109,7 +109,19 @@ def main():
             elif opcion == '14' and len(contents) > 0:
                 list_presets()
                 pause()
+            
+            elif opcion == 'A':
+                if os.name == 'nt':
+                    os.startfile(RAW_PATH)
+                else:
+                    os.system(f'xdg-open "{RAW_PATH}"')
 
+            elif opcion == 'B':
+                if os.name == 'nt':
+                    os.startfile(RAWINDEX_PATH)
+                else:
+                    os.system(f'xdg-open "{RAWINDEX_PATH}"')
+                              
             else: pass
 
         except KeyboardInterrupt:
@@ -120,4 +132,5 @@ def main():
 
 
 if __name__ == "__main__":
+    open(RAW_PATH, "a").close()
     main()

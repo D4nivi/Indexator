@@ -1,0 +1,9 @@
+[
+    {
+        "name": "POllastre",
+        "subdivision": false,
+        "index": 0,
+        "ignore_headers": 3,
+        "no_index_headers": 4
+    }
+]
