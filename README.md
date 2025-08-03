@@ -102,6 +102,8 @@ En la <u><strong>Configuración de variables</strong></u> podemos **cambiar los 
 
 En la <u><strong>Configuración de presets</strong></u> tenemos solo una opción, para crear **presets**. Si pretendes usar varias veces una misma configuración de variables (que no sea la predeterminada), puedes **guardarlas en un preset** y usarlo para indexar sin tener que cambiar los valores de las variables manualmente (ver _[Presets](#Presets)_). 
 
+Las opciones de <u><strong>Abrir archivos</strong></u> permiten abrir los archivos usados por el programa, `bruto.md` y `bruto_indexado.md`, desde la terminal, usando el lector asociado por defecto.
+
 Cuando crees presets, aparecerán más opciones en el menú:
 
 <div align="center">
@@ -282,7 +284,7 @@ Cabe resaltar que estas configuraciones pueden usarse tanto como si se indexa po
 - El programa no detecta encabezados escritos en bloques de código (todo lo que esté entre backsticks, ```), como pueden ser los ejemplos de este readme.
 
 - Cuando se usa la función `Re-Indexator` o `De-Indexator`, es muy importante que el formato sea preciso:
-	- <strong>Si pasas el bruto <u>con índice</u></strong>, es muy importante que esté escrito entre "---", de la siguiente manera:
+	- <strong>Si pasas el bruto <u>con índice</u></strong>, es muy importante que esté escrito entre "---", de la siguiente manera al usar cualquiera de las funciones mencionadas:
 	```
 	---
 	## 1. Titulo de ejemplo 1
@@ -290,6 +292,15 @@ Cabe resaltar que estas configuraciones pueden usarse tanto como si se indexa po
 	### 2.1 Titulo de ejemplo 2.1
 	---
 	```
-	- <strong>Si pasas el bruto <u>sin índice</u></strong>, no tienes que preocuparte por nada, pero téngase en cuenta que el programa detecta que el bruto no tiene índice **si no encuentra el encabezado** `# Índice de contenidos` al principio del documento.
+	- <strong>Si pasas el bruto <u>sin índice</u></strong> y usas la función `Re-Indexator`, debes escribir "---" antes del inicio del texto a indexar:
+	
+	```
+	---
+	## 1. Titulo de ejemplo 1
+	## 2. Titulo de ejemplo 2
+	### 2.1 Titulo de ejemplo 2.1
+	```
+
+	- El programa detecta que el bruto no tiene índice **si no encuentra el encabezado** `# Índice de contenidos` al principio del documento.
 
 	- En ambos casos, el índice se borrará y se creará uno nuevo. Es de gran importancia que se cumpla el formato especificado, de lo contrario el programa podría no borrar el índice o no indexar correctamente.
