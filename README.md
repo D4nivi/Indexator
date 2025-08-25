@@ -207,7 +207,7 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 ```
 
 #### Notas sobre las variables
-- La variable `SUBDIVISION` es tomada en cuenta en las funciones `Indexator` y `Re-Indexator`, pero estas no detectan si los encabezados han sido creados usando esta opción. Tómemos el siguiente ejemplo:
+- La variable `SUBDIVISION` es tomada en cuenta en las funciones `Indexator` y `Re-Indexator`, pero estas no detectan si los encabezados han sido creados usando esta opción. Tomemos el siguiente ejemplo:
 	```
 	## 2.1 Definición de rendimiento
 	## 2.2 Métricas populares
