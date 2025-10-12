@@ -1,4 +1,6 @@
 import os
+import threading
+import subprocess
 from funciones.indexators import indexator, quasi_indexator, re_indexator, menu, get_all, RAW_PATH, RAWINDEX_PATH
 from funciones.indexators import set_subdivision, set_index, set_ignore_headers, set_no_index_headers
 from funciones.presets import list_presets, add_preset, delete_preset, get_contents, get_preset
@@ -14,6 +16,14 @@ def pause(msg: str = "") -> None:
     else:
         print("Presione una tecla para continuar...", end="", flush=True)
         os.system("read -r -n 1 -s")
+
+def abrir_fichero(path: str):
+    if os.name == 'nt':
+        proc = subprocess.Popen(['start', '', path], shell=True)
+    else:
+        proc = subprocess.Popen(['xdg-open', path])
+
+    proc.wait()
 
 def set_all(values: list) -> None:
     """Función para cambiar el valor de todas las variables a la vez."""
@@ -110,17 +120,13 @@ def main():
                 list_presets()
                 pause()
             
-            elif opcion == 'A':
-                if os.name == 'nt':
-                    os.startfile(RAW_PATH)
-                else:
-                    os.system(f'xdg-open "{RAW_PATH}"')
+            elif opcion.lower() == 'a':
+                hilo = threading.Thread(target=abrir_fichero, args=(RAW_PATH,))
+                hilo.start()
 
-            elif opcion == 'B':
-                if os.name == 'nt':
-                    os.startfile(RAWINDEX_PATH)
-                else:
-                    os.system(f'xdg-open "{RAWINDEX_PATH}"')
+            elif opcion.lower() == 'b':
+                hilo = threading.Thread(target=abrir_fichero, args=(RAWINDEX_PATH,))
+                hilo.start()
                               
             else: pass
 

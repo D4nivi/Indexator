@@ -298,7 +298,12 @@ def menu() -> None:
   _| |_  | | | | | (_| | |  __/  >  <  | (_| | | |_  | (_) | | |   
  |_____| |_| |_|  \__,_|  \___| /_/\_\  \__,_|  \__|  \___/  |_|   
  """
-    os.system("clear")
+
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
+        
     print(titulo)
     print("¿Qué vamos a usar hoy?\n(1) Indexator\n(2) Quasi-Indexator\n(3) Re-Indexator\n(4) De-Indexator\n")
     
