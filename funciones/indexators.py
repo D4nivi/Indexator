@@ -75,8 +75,8 @@ def indexator(path = RAW_PATH) -> None:
                 # Título (lo que va después de los hashtags, +1 porque hay un espacio)
                 title = line[hashtags+1:].rstrip()
 
-                # Título en formato markdown, sustituyendo espacios por %20
-                format_title = title.replace(" ", "%20")
+                # Título en formato markdown, sustituyendo espacios por %20 y quitando ":"
+                format_title = title.replace(" ", "%20").replace(":", "")
 
                 # Escribo líneas del índice y cada título en bruto_indexado.md añadiéndoles el número
                 if 0 < NO_INDEX_HEADERS <= hashtags:
@@ -303,7 +303,7 @@ def menu() -> None:
         os.system("cls")
     else:
         os.system("clear")
-        
+
     print(titulo)
     print("¿Qué vamos a usar hoy?\n(1) Indexator\n(2) Quasi-Indexator\n(3) Re-Indexator\n(4) De-Indexator\n")
     
