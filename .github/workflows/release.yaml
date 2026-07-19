@@ -1,0 +1,28 @@
+name: Crear release
+
+on:
+  push:
+    tags:
+      - "v*"          # Solo se dispara con tags que empiecen por "v"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Crear zip del proyecto
+        run: |
+          zip -r "Indexator-${{ github.ref_name }}.zip" . \
+            -x ".git/*" ".github/*" ".gitignore" "*.zip" "img" "img/*"
+
+      - name: Crear release (borrador)
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: "Indexator-${{ github.ref_name }}.zip"
