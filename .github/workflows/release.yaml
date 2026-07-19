@@ -24,5 +24,8 @@ jobs:
       - name: Crear release (borrador)
         uses: softprops/action-gh-release@v2
         with:
+          name: "Indexator ${{ github.ref_name }}"
+          body: |
+            ## Nuevo en esta versión
           draft: true
           files: "Indexator-${{ github.ref_name }}.zip"
