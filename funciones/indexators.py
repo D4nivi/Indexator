@@ -1,7 +1,6 @@
 import os
 import re
 import fileinput
-from funciones.presets import read_json, get_contents, get_preset, MAX_PRESETS
 
 ##### RUTAS A ARCHIVOS #####
 # Path al bruto.md, de donde se lee el bruto a indexar.
@@ -19,6 +18,7 @@ TMP_PATH = os.path.join(os.getcwd(), ".tmp.md")
 
 
 ##### VARIABLES #####
+USE_WIKILINKS = False
 SUBDIVISION = False
 INDEX = 1
 IGNORE_HEADERS = 0
@@ -43,6 +43,8 @@ def indexator(path = RAW_PATH) -> None:
         # Variable para detectar si el texto está entre backsticks (```)
         inside_backsticks = False
 
+        heading_stack = []
+
         # Escritura
         tmpfile.write("# Índice de contenidos\n")
         for line in infile:
@@ -52,8 +54,8 @@ def indexator(path = RAW_PATH) -> None:
                 inside_backsticks = not inside_backsticks
 
             if line.startswith('##') and not inside_backsticks:
-                # Cuento el número de hashtags (no debería de haber en el título)
-                hashtags = line.count('#')
+                # Cuento el número de hashtags
+                hashtags = len(line) - len(line.lstrip('#'))
 
                 # Profundidad del indice.
                 # Ej.: 1.1 (2 hashtags, depth 0), 1.1.1 (3 hashtags, depth 1), y así
@@ -75,23 +77,26 @@ def indexator(path = RAW_PATH) -> None:
                 # Título (lo que va después de los hashtags, +1 porque hay un espacio)
                 title = line[hashtags+1:].rstrip()
 
-                # Título en formato markdown, sustituyendo espacios por %20 y quitando ":"
-                format_title = title.replace(" ", "%20").replace(":", "")
-
-                # Escribo líneas del índice y cada título en bruto_indexado.md añadiéndoles el número
+                # Calculamos primero el texto final del encabezado (el que realmente
+                # quedará escrito en el archivo), porque ese es el texto que hay que
+                # usar en la cadena de anidación, no el título "en bruto".
                 if 0 < NO_INDEX_HEADERS <= hashtags:
-                    tmpfile.write(f"{'\t' * depth}- [{title}](#{format_title})\n")
-                    outfile.write(f"{'#' * hashtags} {title}\n")
+                    heading_text = title
                 elif SUBDIVISION:
-                    tmpfile.write(f"{'\t' * depth}- [{INDEX}{subindex} {title}](#{INDEX}{subindex}%20{format_title})\n")
-                    outfile.write(f"{'#' * hashtags} {INDEX}{subindex} {title}\n")
+                    heading_text = f"{INDEX}{subindex} {title}"
                 else:
                     if depth == 0:
                         subindex = subindex[1:] + '.'
                     else:
                         subindex = subindex[1:]
-                    tmpfile.write(f"{'\t' * depth}- [{subindex} {title}](#{subindex}%20{format_title})\n")
-                    outfile.write(f"{'#' * hashtags} {subindex} {title}\n")
+                    heading_text = f"{subindex} {title}"
+
+                # Pila de encabezados ancestros: reemplazamos el nivel actual y
+                # truncamos todo lo que estuviera por debajo (igual que con subindexes)
+                heading_stack = heading_stack[:depth] + [heading_text]
+
+                tmpfile.write(build_index_link(depth, heading_text, heading_stack, USE_WIKILINKS))
+                outfile.write(f"{'#' * hashtags} {heading_text}\n")
 
                 hashtags_ant = hashtags
             else:
@@ -113,7 +118,7 @@ def quasi_indexator() -> None:
         
         for line in infile:
             if line.startswith('##'):
-                hashtags = line.count('#')
+                hashtags = len(line) - len(line.lstrip('#'))
                 depth = hashtags - 2
 
                 title = line[hashtags+1:].rstrip()
@@ -158,6 +163,17 @@ def re_indexator() -> None:
 
     indexator(TMP_PATH)
     os.remove(TMP_PATH)
+
+
+# Función para crear el enlace del encabezado (auxiliar)
+def build_index_link(depth, heading_text, heading_stack, use_wikilinks):
+    """Devuelve la línea de índice (con tabulación) para un encabezado dado."""
+    if use_wikilinks:
+        heading_path = "#".join(heading_stack)
+        return f"{'\t' * depth}- [[#{heading_path}|{heading_text}]]\n"
+    else:
+        format_title = heading_text.replace(" ", "%20").replace(":", "")
+        return f"{'\t' * depth}- [{heading_text}](#{format_title})\n"
 
 
 # Función para borrar índice (auxiliar)
@@ -207,6 +223,18 @@ def add_index() -> None:
 
 
 ##### SETTERS PARA EL MAIN #####
+def set_use_wikilinks(value: bool | None = None) -> None:
+    """
+    Setter para variable USE_WIKILINKS.
+    """
+
+    global USE_WIKILINKS
+
+    if value is None:
+        USE_WIKILINKS = not USE_WIKILINKS
+    else:
+        USE_WIKILINKS = value
+
 def set_subdivision(value: bool | None = None) -> None:
     """
     Setter para variable SUBDIVISION.
@@ -282,58 +310,22 @@ def set_no_index_headers(value: int | None = None) -> None:
 
     NO_INDEX_HEADERS = value
 
-def get_all() -> list:
-    """Devuelve una lista con los valores de las variables del programa."""
-    return [SUBDIVISION, INDEX, IGNORE_HEADERS, NO_INDEX_HEADERS]
+def get_all() -> dict:
+    """Devuelve un diccionario con los valores de las variables del programa"""
 
-##### MENÚ #####
-def menu() -> None:
-    """Muestra el menú principal de Indexator."""
+    return {
+        "use_wikilinks": USE_WIKILINKS,
+        "subdivision": SUBDIVISION,
+        "index": INDEX,
+        "ignore_headers": IGNORE_HEADERS,
+        "no_index_headers": NO_INDEX_HEADERS,
+    }
+
+def set_all(values: dict) -> None:
+    """Función para cambiar el valor de todas las variables a la vez."""
     
-    # Título sacado de https://patorjk.com/software/taag. Fuente: Big
-    titulo = r"""  _____               _                         _                  
- |_   _|             | |                       | |                 
-   | |    _ __     __| |   ___  __  __   __ _  | |_    ___    _ __ 
-   | |   | '_ \   / _` |  / _ \ \ \/ /  / _` | | __|  / _ \  | '__|
-  _| |_  | | | | | (_| | |  __/  >  <  | (_| | | |_  | (_) | | |   
- |_____| |_| |_|  \__,_|  \___| /_/\_\  \__,_|  \__|  \___/  |_|   
- """
-
-    if os.name == "nt":
-        os.system("cls")
-    else:
-        os.system("clear")
-
-    print(titulo)
-    print("¿Qué vamos a usar hoy?\n(1) Indexator\n(2) Quasi-Indexator\n(3) Re-Indexator\n(4) De-Indexator\n")
-    
-    print("Configuración de variables")
-    print(f"(5) Alternar SUBDIVISION (valor = {SUBDIVISION})")
-    print(f"(6) Cambiar INDEX (valor = {INDEX})")
-    print(f"(7) Cambiar IGNORE_HEADERS (valor = {IGNORE_HEADERS})")
-    print(f"(8) Cambiar NO_INDEX_HEADERS (valor = {NO_INDEX_HEADERS})")
-    print("(9) Restablecer a los valores predeterminados\n")
-
-    print("Configuración de presets")
-    if read_json():
-
-        if get_preset(0):
-            print(f"(10) Indexar con primer preset ('{get_preset(0)["name"]}')")
-        
-        if len(get_contents()) > 1:
-            print("(11) Indexar con otro preset")
-        
-        if len(get_contents()) < MAX_PRESETS:
-            print(f"(12) Crear un preset ({len(get_contents())} preset(s) creado(s), MÁX. {MAX_PRESETS})")
-        else:
-            print("(12) Crear un preset (LÍMITE ALCANZADO)")
-
-        if len(get_contents()) > 0:
-            print("(13) Eliminar un preset\n(14) Listar presets")
-    
-    print("\nAbrir archivos")
-    print("(A) Abrir bruto.md")
-    print("(B) Abrir bruto_indexado.md")
-
-    print("\n(0) Salir\n")
-    print("Opcion: ", end="")
+    set_use_wikilinks(values["use_wikilinks"])
+    set_subdivision(values["subdivision"])
+    set_index(values["index"])
+    set_ignore_headers(values["ignore_headers"])
+    set_no_index_headers(values["no_index_headers"])

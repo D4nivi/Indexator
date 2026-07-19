@@ -1,16 +1,10 @@
 [
     {
         "name": "Software",
+        "use_wikilinks": false,
         "subdivision": true,
         "index": 2,
         "ignore_headers": 0,
-        "no_index_headers": 0
-    },
-    {
-        "name": "d",
-        "subdivision": true,
-        "index": 2,
-        "ignore_headers": 0,
-        "no_index_headers": 0
+        "no_index_headers": 2
     }
 ]
