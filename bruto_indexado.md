@@ -8,10 +8,7 @@
 - [Instalar drivers de NVIDIA](#Instalar%20drivers%20de%20NVIDIA)
 - [Limpieza de bloatware: Win11Debloat](#Limpieza%20de%20bloatware%20Win11Debloat)
 - [Ajustes con winutil](#Ajustes%20con%20winutil)
-	- [Tweaks](#Tweaks)
-	- [Instalación rápida de software](#Instalación%20rápida%20de%20software)
 - [Instalación completada](#Instalación%20completada)
-	- [Cambiar mapeo de tecla de copilot](#Cambiar%20mapeo%20de%20tecla%20de%20copilot)
 ---
 ## Activar Windows
 Una vez hayas instalado Windows y aparezcas en el escritorio, lo primero que recomiendo es <span style="color:rgb(255, 0, 90)"><b>activar Windows</b></span>, aunque podrías ponerte directamente a actualizar primero, el orden en este caso no es critico.

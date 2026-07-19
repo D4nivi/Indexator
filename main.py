@@ -3,7 +3,7 @@ import subprocess
 import threading
 from funciones.indexators import indexator, quasi_indexator, re_indexator, get_all, set_all, RAW_PATH, RAWINDEX_PATH
 from funciones.indexators import set_use_wikilinks, set_subdivision, set_index, set_ignore_headers, set_no_index_headers
-from funciones.presets import read_json, list_presets, add_preset, delete_preset, get_num_presets, get_preset, MAX_PRESETS
+from funciones.presets import read_json, list_presets, add_preset, delete_preset, get_num_presets, get_preset, fill_defaults
 from funciones.menu import MenuItem, render_menu
 
 # a nivel de módulo, junto a los imports
@@ -28,7 +28,7 @@ def preset_indexation(n_preset: int = 0) -> None:
     Si no se especifica `n_preset`, se usa el primer preset de `presets.json`.
     """
 
-    set_all(get_preset(n_preset))
+    set_all(fill_defaults(get_preset(n_preset)))
     re_indexator()
 
 
@@ -82,7 +82,7 @@ def abrir_en_hilo(path: str) -> None:
     hilo = threading.Thread(target=abrir_fichero, args=(path,))
     hilo.start()
 
-##### Programa principal #####
+##### CONSTRUIR MENÚ INTERACTIVO #####
 def build_menu_items(old_values: dict) -> list[MenuItem]:
     variables = get_all()
 
@@ -117,16 +117,18 @@ def build_menu_items(old_values: dict) -> list[MenuItem]:
                 f"Indexar con primer preset ('{get_preset(0)['name']}')",
                 lambda: preset_indexation(), show_success=True
             ))
+
         if n_presets > 1:
             items.append(MenuItem(
                 "Indexar con otro preset",
                 lambda: elegir_preset(old_values, n_presets), show_success=True
             ))
-        if n_presets < MAX_PRESETS:
-            items.append(MenuItem(
-                f"Crear un preset ({n_presets} preset(s) creado(s), MÁX. {MAX_PRESETS})",
-                add_preset
-            ))
+
+        items.append(MenuItem(
+            f"Crear un preset ({n_presets} preset(s) creado(s))",
+            add_preset
+        ))
+
         if n_presets > 0:
             items.append(MenuItem("Eliminar un preset", delete_preset))
             items.append(MenuItem("Listar presets", lambda: (list_presets(), pause())))
@@ -148,21 +150,21 @@ def main():
 
         try:
             opcion = input().strip().upper()
+            
+            if opcion == "0":
+                print("\nSaliendo...")
+                exit(0)
+
+            seleccion = dispatch.get(opcion)
+            if seleccion:
+                seleccion.action()
+                if seleccion.show_success:
+                    pause(SUCCESS_MSG)
         except KeyboardInterrupt:
             continue
         except EOFError:
             print("\n\n\033[1;31mAbortando...\033[0m")
             exit(1)
-
-        if opcion == "0":
-            print("\nSaliendo...")
-            exit(0)
-
-        seleccion = dispatch.get(opcion)
-        if seleccion:
-            seleccion.action()
-            if seleccion.show_success:
-                pause(SUCCESS_MSG)
 
 
 if __name__ == "__main__":
