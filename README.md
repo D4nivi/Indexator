@@ -149,7 +149,18 @@ ___Nota: Mi Obsidian tiene temas y snippets, pero la estructura del índice ser�
 - `De-Indexator`. Borra el **Índice de Contenidos** y los índices de los títulos.
 ### Variables
 
-Durante la ejecución, puedes cambiar los valores de **4 variables** para modificar la salida del programa. Todas estas variables pueden usarse en conjunto, lo que hace que el indexado sea muy flexible.  
+Durante la ejecución, puedes cambiar los valores de **5 variables** para modificar la salida del programa. Todas estas variables pueden usarse en conjunto, lo que hace que el indexado sea muy flexible.
+- `USE_WIKILINKS`. Su valor predeterminado es `False`. Esta opción crea los índices usando **wikilinks** (enlaces internos), en lugar de usar enlaces estándar. Esta opción debe usarse en situaciones donde haya **subencabezados con nombres iguales**, por ejemplo:
+
+<div align="center">
+    <img src="img/Ejemplo índice que no funcionaría sin wikilinks.png" alt="Ejemplo de índice que no funcionaría sin wikilinks">
+</div>
+
+- No usar wikilinks en este casos crearía un índice donde todos los enlaces de "Instalación" y "Actualización" llevarían al primer encabezado.
+
+- Por lo general, los índices con wikilinks están más sobrecargados que los estándar, y no resuelven ningún otro problema que el anteriormente mencionado.
+
+­
 - `SUBDIVISION`. Su valor predeterminado es `False`. Cuando vale `True`, añade `INDEX` al frente de los números del índice.
 
 	- De esta manera, la transformación que hace el programa sería la siguiente:
@@ -161,7 +172,7 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 	###### -> INDEX.1.2.3.4.5
 	```
 
-	- Tomando el ejemplo, si hubiéramos utilizado Indexator con `SUBDIVISION = True`, la salida hubiera sido:
+	- Tomando el ejemplo del apartado [Funciones](#Funciones), si hubiéramos utilizado Indexator con `SUBDIVISION = True`, la salida hubiera sido:
 	```
 	# Índice de contenidos
 	- [1.1 Definición de rendimiento](#1.1%20Definición%20de%20rendimiento)
@@ -254,21 +265,21 @@ Durante la ejecución, puedes cambiar los valores de **4 variables** para modifi
 ### Presets
 Para evitar tener que memorizar los valores de las variables para un tipo de indexado que hagas recurrentemente, el programa te permite crear **presets**: configuraciones de variables que puedes usar para indexar. Estas configuraciones se guardan en el archivo `presets.json`.
 
-Para crear un preset, usa la opción 12 del menú. Se te pedirá un nombre y los valores de las variables. Esto último requiere ser introducido siguiendo un patrón ordenado:
+Para crear un preset, se te pedirá un nombre y los valores de las variables. Estos requiere ser introducidos siguiendo un patrón ordenado:
 ```
-             subdivision     index     ignore_headers     no_index_headers
+use_wikilinks     subdivision     index     ignore_headers     no_index_headers
 ```
 
 A continuación se muestran algunos ejemplos de entradas que acepta el programa:
 ```
-True 1 0 0       # Indexado normal con subíndice 1
-False 2 0 0      # Indexado normal (subdivision es False)
-false 2 3 0      # Indexado sin poner encabezados h3 y superior en el índice
-FaLsE 0 3 3      # Ídem pero además sin indexar los encabezados h3 y superior
-0 0 3 3          # Ídem al anterior
+False True 1 0 0        # Indexado normal con subíndice 1, usando enlaces Markdown
+True False 2 0 0        # Indexado normal (subdivision es False), usando wikilinks
+false false 2 3 0       # Indexado sin poner encabezados h3 y superior en el índice
+True FaLsE 0 3 3        # Ídem pero además sin indexar los encabezados h3 y superior, usando wikilinks
+1 0 0 3 3               # Ídem al anterior
 ```
 ___Notas Importantes:___ 
-- `SUBDIVISION` puede tomar valores 1 o 0 en lugar de `True` o `False`, respectivamente. El programa ignora mayúsculas y minúsculas cuando se comprueba su valor.
+- `USE_WIKILINKS` y `SUBDIVISION` pueden tomar valores 1 o 0 en lugar de `True` o `False`, respectivamente. El programa ignora mayúsculas y minúsculas cuando se comprueba su valor.
 
 - El valor de `INDEX` debe ser válido (mayor que 0) aunque `SUBDIVISION` sea `False`.
 

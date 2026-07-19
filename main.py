@@ -3,7 +3,7 @@ import subprocess
 import threading
 from funciones.indexators import indexator, quasi_indexator, re_indexator, get_all, set_all, RAW_PATH, RAWINDEX_PATH
 from funciones.indexators import set_use_wikilinks, set_subdivision, set_index, set_ignore_headers, set_no_index_headers
-from funciones.presets import read_json, list_presets, add_preset, delete_preset, get_num_presets, get_preset, fill_defaults
+from funciones.presets import read_json, list_presets, add_preset, delete_preset, get_num_presets, get_preset, fill_defaults, PRESETS_PATH
 from funciones.menu import MenuItem, render_menu
 
 # a nivel de módulo, junto a los imports
@@ -35,8 +35,7 @@ def preset_indexation(n_preset: int = 0) -> None:
 def de_indexator(old_values: dict) -> None:
     """
     'De-Indexator': fuerza IGNORE_HEADERS y NO_INDEX_HEADERS a 2 para
-    generar el documento sin numeración ni índice, y luego restaura
-    los valores anteriores de configuración.
+    generar el documento sin numeración ni índice.
     """
 
     set_ignore_headers(2)
@@ -64,20 +63,19 @@ def elegir_preset(old_values: dict, n_presets: int) -> None:
     set_all(old_values)
 
 
-def abrir_fichero(path: str):
-    if os.name == 'nt':
-        proc = subprocess.Popen(['start', '', path], shell=True)
-    else:
-        proc = subprocess.Popen(['xdg-open', path])
-
-    proc.wait()
-
-
 def abrir_en_hilo(path: str) -> None:
     """
     Abre un archivo con la aplicación predeterminada del sistema,
     en un hilo aparte para no bloquear el programa mientras se abre.
     """
+
+    def abrir_fichero(path: str):
+        if os.name == 'nt':
+            proc = subprocess.Popen(['start', '', path], shell=True)
+        else:
+            proc = subprocess.Popen(['xdg-open', path])
+
+        proc.wait()
 
     hilo = threading.Thread(target=abrir_fichero, args=(path,))
     hilo.start()
@@ -150,7 +148,7 @@ def main():
 
         try:
             opcion = input().strip().upper()
-            
+
             if opcion == "0":
                 print("\nSaliendo...")
                 exit(0)
@@ -169,4 +167,5 @@ def main():
 
 if __name__ == "__main__":
     open(RAW_PATH, "a").close()
+    open(PRESETS_PATH, "a").close()
     main()
