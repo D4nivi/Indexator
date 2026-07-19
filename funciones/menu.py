@@ -10,6 +10,7 @@ class MenuItem:
     action: Optional[Callable[[], None]] = None   # None = línea decorativa (título de sección, etc.)
     key: Optional[str] = None                     # Para teclas fijas tipo "A"/"B"; si es None, se numera solo
     visible: bool = True
+    show_success: bool = False
 
 # Título sacado de https://patorjk.com/software/taag. Fuente: Big
 TITULO = r"""  _____               _                         _                  
@@ -21,7 +22,7 @@ TITULO = r"""  _____               _                         _
  """
 
 
-def render_menu(items: list[MenuItem]) -> dict[str, Callable[[], None]]:
+def render_menu(items: list[MenuItem]) -> dict[str, MenuItem]:
     """
     Imprime el menú a partir de `items` y devuelve un diccionario
     {tecla: acción} para que el bucle principal despache directamente
@@ -42,7 +43,7 @@ def render_menu(items: list[MenuItem]) -> dict[str, Callable[[], None]]:
 
         tecla = item.key or str(contador)
         print(f"({tecla}) {item.label}")
-        dispatch[tecla] = item.action
+        dispatch[tecla] = item
 
         if item.key is None:
             contador += 1

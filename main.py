@@ -3,7 +3,7 @@ import subprocess
 import threading
 from funciones.indexators import indexator, quasi_indexator, re_indexator, get_all, set_all, RAW_PATH, RAWINDEX_PATH
 from funciones.indexators import set_use_wikilinks, set_subdivision, set_index, set_ignore_headers, set_no_index_headers
-from funciones.presets import read_json, list_presets, add_preset, delete_preset, get_contents, get_preset, MAX_PRESETS
+from funciones.presets import read_json, list_presets, add_preset, delete_preset, get_num_presets, get_preset, MAX_PRESETS
 from funciones.menu import MenuItem, render_menu
 
 # a nivel de módulo, junto a los imports
@@ -43,27 +43,25 @@ def de_indexator(old_values: dict) -> None:
     set_no_index_headers(2)
     re_indexator()
     set_all(old_values)
-    pause(SUCCESS_MSG)
 
 
-def elegir_preset(old_values: dict, contents: list) -> None:
+def elegir_preset(old_values: dict, n_presets: int) -> None:
     """
     Pide al usuario que elija un preset por número, indexa con él,
     y restaura los valores anteriores de configuración.
     """
 
     list_presets()
-    n_preset = -1
+    preset_actual = -1
 
-    while not 0 <= n_preset < len(contents):
+    while not (0 <= preset_actual < n_presets):
         try:
-            n_preset = int(input("Introduce el número de preset a usar: "))
+            preset_actual = int(input("Introduce el número de preset a usar: "))
         except ValueError:
             pass
 
-    preset_indexation(n_preset)
+    preset_indexation(preset_actual)
     set_all(old_values)
-    pause(SUCCESS_MSG)
 
 
 def abrir_fichero(path: str):
@@ -85,15 +83,15 @@ def abrir_en_hilo(path: str) -> None:
     hilo.start()
 
 ##### Programa principal #####
-def build_menu_items(old_values: dict, contents: list) -> list[MenuItem]:
+def build_menu_items(old_values: dict) -> list[MenuItem]:
     variables = get_all()
 
     items = [
         MenuItem("¿Qué vamos a usar hoy?"),
-        MenuItem("Indexator", lambda: indexator()),
-        MenuItem("Quasi-Indexator", lambda: quasi_indexator()),
-        MenuItem("Re-Indexator", lambda: re_indexator()),
-        MenuItem("De-Indexator", lambda: de_indexator(old_values)),
+        MenuItem("Indexator", indexator, show_success=True),
+        MenuItem("Quasi-Indexator", quasi_indexator, show_success=True),
+        MenuItem("Re-Indexator", re_indexator, show_success=True),
+        MenuItem("De-Indexator", lambda: de_indexator(old_values), show_success=True),
 
         MenuItem(""),
         MenuItem("Configuración de variables"),
@@ -112,19 +110,24 @@ def build_menu_items(old_values: dict, contents: list) -> list[MenuItem]:
     ]
 
     if read_json():
+        n_presets = get_num_presets()
+
         if get_preset(0):
             items.append(MenuItem(
                 f"Indexar con primer preset ('{get_preset(0)['name']}')",
-                lambda: preset_indexation()
+                lambda: preset_indexation(), show_success=True
             ))
-        if len(contents) > 1:
-            items.append(MenuItem("Indexar con otro preset", elegir_preset))
-        if len(contents) < MAX_PRESETS:
+        if n_presets > 1:
             items.append(MenuItem(
-                f"Crear un preset ({len(contents)} preset(s) creado(s), MÁX. {MAX_PRESETS})",
+                "Indexar con otro preset",
+                lambda: elegir_preset(old_values, n_presets), show_success=True
+            ))
+        if n_presets < MAX_PRESETS:
+            items.append(MenuItem(
+                f"Crear un preset ({n_presets} preset(s) creado(s), MÁX. {MAX_PRESETS})",
                 add_preset
             ))
-        if len(contents) > 0:
+        if n_presets > 0:
             items.append(MenuItem("Eliminar un preset", delete_preset))
             items.append(MenuItem("Listar presets", lambda: (list_presets(), pause())))
 
@@ -141,8 +144,7 @@ def build_menu_items(old_values: dict, contents: list) -> list[MenuItem]:
 def main():
     while True:
         old_values = get_all()
-        contents = get_contents()
-        dispatch = render_menu(build_menu_items(old_values, contents))
+        dispatch = render_menu(build_menu_items(old_values))
 
         try:
             opcion = input().strip().upper()
@@ -156,8 +158,11 @@ def main():
             print("\nSaliendo...")
             exit(0)
 
-        accion = dispatch.get(opcion)
-        if accion: accion()
+        seleccion = dispatch.get(opcion)
+        if seleccion:
+            seleccion.action()
+            if seleccion.show_success:
+                pause(SUCCESS_MSG)
 
 
 if __name__ == "__main__":

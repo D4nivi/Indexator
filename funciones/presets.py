@@ -147,9 +147,9 @@ def delete_preset() -> bool:
 
     return True
 
-def get_contents() -> list:
-    """Devuelve una copia del contenido de `presets.json`."""
-    return CONTENTS
+def get_num_presets() -> int:
+    """Devuelve el número de presets contenidos en `presets.json`."""
+    return len(CONTENTS)
 
 def get_preset(n: int) -> dict:
     """Devuelve un diccionario con los datos del preset `n`. Si no hay presets creados, devuelve un diccionario vacío."""
