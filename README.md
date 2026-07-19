@@ -93,7 +93,7 @@ python main.py
 Al ejecutar el programa <strong>por <u>primera vez</u></strong> nos aparecerá un **menú** como el siguiente:
 
 <div align="center">
-    <img src="img/Menú indexator primera ejecución.png" width="70%" alt="Ejemplo salida indexator">
+    <img src="img/Menú indexator primera ejecución.png" width="60%" alt="Ejemplo salida indexator">
 </div>
 
 En este menú podemos seleccionar la **función que queramos usar para indexar** (ver [_Funciones_](#Funciones)). El archivo `bruto_indexado.md` contendrá la salida del programa: **el bruto con los encabezados modificados** (con los números añadidos) y **el índice**.
@@ -107,7 +107,7 @@ Las opciones de <u><strong>Abrir archivos</strong></u> permiten abrir los archiv
 Cuando crees presets, aparecerán más opciones en el menú:
 
 <div align="center">
-    <img src="img/Menú indexator tras crear 2 presets.png" width="70%" alt="Ejemplo salida indexator">
+    <img src="img/Menú indexator tras crear 2 presets.png" width="60%" alt="Ejemplo salida indexator">
 </div>
 
 - Para indexar con el primer preset que hayas creado, usas la opción (10). Esta opción siempre usará el primer preset.
@@ -153,7 +153,7 @@ Durante la ejecución, puedes cambiar los valores de **5 variables** para modifi
 - `USE_WIKILINKS`. Su valor predeterminado es `False`. Esta opción crea los índices usando **wikilinks** (enlaces internos), en lugar de usar enlaces estándar. Esta opción debe usarse en situaciones donde haya **subencabezados con nombres iguales**, por ejemplo:
 
 <div align="center">
-    <img src="img/Ejemplo índice que no funcionaría sin wikilinks.png" alt="Ejemplo de índice que no funcionaría sin wikilinks">
+    <img src="img/Ejemplo índice que no funcionaría sin wikilinks.png" width="60%" alt="Ejemplo de índice que no funcionaría sin wikilinks">
 </div>
 
 - No usar wikilinks en este casos crearía un índice donde todos los enlaces de "Instalación" y "Actualización" llevarían al primer encabezado.
