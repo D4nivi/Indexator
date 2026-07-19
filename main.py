@@ -21,7 +21,7 @@ def pause(msg: str = "") -> None:
         print("Presione una tecla para continuar...", end="", flush=True)
         os.system("read -r -n 1 -s")
 
-def preset_indexation(n_preset: int = 0) -> None:
+def preset_indexation(old_values, n_preset: int = 0) -> None:
     """
     Función para indexar según los valores de las variables de un preset.
     
@@ -30,6 +30,7 @@ def preset_indexation(n_preset: int = 0) -> None:
 
     set_all(fill_defaults(get_preset(n_preset)))
     re_indexator()
+    set_all(old_values)
 
 
 def de_indexator(old_values: dict) -> None:
@@ -59,8 +60,7 @@ def elegir_preset(old_values: dict, n_presets: int) -> None:
         except ValueError:
             pass
 
-    preset_indexation(preset_actual)
-    set_all(old_values)
+    preset_indexation(old_values, preset_actual)
 
 
 def abrir_en_hilo(path: str) -> None:
@@ -113,7 +113,7 @@ def build_menu_items(old_values: dict) -> list[MenuItem]:
         if get_preset(0):
             items.append(MenuItem(
                 f"Indexar con primer preset ('{get_preset(0)['name']}')",
-                lambda: preset_indexation(), show_success=True
+                lambda: preset_indexation(old_values), show_success=True
             ))
 
         if n_presets > 1:
